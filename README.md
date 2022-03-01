@@ -2,7 +2,7 @@
 [![Pre-commit Status](https://github.com/OCA/shift-planning/actions/workflows/pre-commit.yml/badge.svg?branch=12.0)](https://github.com/OCA/shift-planning/actions/workflows/pre-commit.yml?query=branch%3A12.0)
 [![Build Status](https://github.com/OCA/shift-planning/actions/workflows/test.yml/badge.svg?branch=12.0)](https://github.com/OCA/shift-planning/actions/workflows/test.yml?query=branch%3A12.0)
 [![codecov](https://codecov.io/gh/OCA/shift-planning/branch/12.0/graph/badge.svg)](https://codecov.io/gh/OCA/shift-planning)
-[![Translation Status](https://translation.odoo-community.org/widgets/shift-planning-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/shift-planning-14-0/?utm_source=widget)
+[![Translation Status](https://translation.odoo-community.org/widgets/shift-planning-12-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/shift-planning-12-0/?utm_source=widget)
 
 <!-- /!\ do not modify above this line -->
 
