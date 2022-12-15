@@ -6,7 +6,8 @@ on:
       - "12.0*"
   push:
     branches:
-      - "12.0*"
+      - "12.0"
+      - "12.0-ocabot-*"
 
 jobs:
   unreleased-deps:
@@ -27,7 +28,7 @@ jobs:
               fi
           done
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container: ${{ matrix.container }}
     name: ${{ matrix.name }}
     strategy:
