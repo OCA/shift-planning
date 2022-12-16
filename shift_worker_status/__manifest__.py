@@ -2,11 +2,11 @@
 #   Elouan Le Bars <elouan@coopiteasy.be>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "BEES coop Worker Status manager",
+    "name": "Worker Status manager",
     "summary": """
-        Worker status management specific to beescoop.""",
+        Worker status management.""",
     "author": "Thibault Francois, Elouan Le Bars, Coop IT Easy SC",
-    "website": "https://github.com/beescoop/Obeesdoo",
+    "website": "https://github.com/OCA/shift-planning",
     "category": "Cooperative management",
     "version": "12.0.1.1.0",
     "depends": ["shift"],
