@@ -3,16 +3,16 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools.translate import _
 
 
-class Task(models.Model):
+class Shift(models.Model):
     _inherit = "shift.shift"
 
-    def _compensation_validation(self, task):
+    def _compensation_validation(self, shift):
         """
         Raise a validation error if the fields is_regular and
         is_compensation are not properly set.
         """
-        if task.is_regular == task.is_compensation or not (
-            task.is_regular or task.is_compensation
+        if shift.is_regular == shift.is_compensation or not (
+            shift.is_regular or shift.is_compensation
         ):
             raise ValidationError(
                 _("You must choose between Regular Shift or Compensation Shift.")
@@ -20,9 +20,9 @@ class Task(models.Model):
 
     @api.constrains("is_regular", "is_compensation")
     def _check_compensation(self):
-        for task in self:
-            if task.working_mode == "regular":
-                self._compensation_validation(task)
+        for shift in self:
+            if shift.working_mode == "regular":
+                self._compensation_validation(shift)
 
     @api.constrains("worker_id")
     def _check_worker_id(self):
@@ -33,13 +33,13 @@ class Task(models.Model):
         is_regular and is_compensation, these two fields are set to
         False.
         """
-        for task in self:
-            if task.working_mode == "regular":
-                self._compensation_validation(task)
+        for shift in self:
+            if shift.working_mode == "regular":
+                self._compensation_validation(shift)
             else:
-                task.write({"is_regular": False, "is_compensation": False})
-            if task.worker_id:
-                if task.worker_id == task.replaced_id:
+                shift.write({"is_regular": False, "is_compensation": False})
+            if shift.worker_id:
+                if shift.worker_id == shift.replaced_id:
                     raise UserError(_("A worker cannot replace himself."))
 
     #################################
