@@ -17,7 +17,9 @@ MODELS_TO_RENAME = {
     "beesdoo.shift.sheet.expected": "shift.sheet.expected",
     "beesdoo.shift.sheet.shift": "shift.sheet.shift",
     "beesdoo.shift.sheet.validate": "shift.sheet.validate",
-    "beesdoo.shift.generate_missing_attendance_sheets": "shift.generate_missing_attendance_sheets",
+    "beesdoo.shift.generate_missing_attendance_sheets": (
+        "shift.generate_missing_attendance_sheets"
+    ),
 }
 XMLIDS_TO_RENAME = [
     (
@@ -47,9 +49,15 @@ XMLIDS_TO_RENAME = [
 ]
 PARAMETER_KEYS_TO_RENAME = {
     "beesdoo_shift_attendance.card_support": "shift_attendance.card_support",
-    "beesdoo_shift_attendance.pre_filled_task_type_id": "shift_attendance.pre_filled_task_type_id",
-    "beesdoo_shift_attendance.attendance_sheet_generation_interval": "shift_attendance.attendance_sheet_generation_interval",
-    "beesdoo_shift_attendance.attendance_sheet_default_shift_state": "shift_attendance.attendance_sheet_default_shift_state"
+    "beesdoo_shift_attendance.pre_filled_task_type_id": (
+        "shift_attendance.pre_filled_task_type_id"
+    ),
+    "beesdoo_shift_attendance.attendance_sheet_generation_interval": (
+        "shift_attendance.attendance_sheet_generation_interval"
+    ),
+    "beesdoo_shift_attendance.attendance_sheet_default_shift_state": (
+        "shift_attendance.attendance_sheet_default_shift_state"
+    ),
 }
 OLD_MODULE_NAME = "beesdoo_shift_attendance"
 NEW_MODULE_NAME = "shift_attendance"
