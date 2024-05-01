@@ -15,7 +15,7 @@ odoo_version: 16.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
-repo_description: null
+repo_description: ""
 repo_name: shift-planning
 repo_slug: shift-planning
 repo_website: https://github.com/OCA/shift-planning
