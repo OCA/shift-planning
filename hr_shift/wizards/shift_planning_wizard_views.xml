@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="shift_planning_wizard_form" model="ir.ui.view">
+        <field name="model">shift.planning.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="How to generate the new planning">
+                            <field
+                                name="generation_type"
+                                string="How?"
+                                widget="radio"
+                                nolabel="1"
+                            />
+                            <field
+                                name="from_planning_id"
+                                attrs="{'invisible': [('generation_type', '=', 'from_last')]}"
+                            />
+                        </group>
+                        <group string="Generate for this week">
+                            <field name="week_number" />
+                            <field name="year" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        type="object"
+                        name="generate"
+                        class="btn btn-primary"
+                    >Generate</button>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="shift_planning_wizard_action" model="ir.actions.act_window">
+        <field name="name">Generate new planning week</field>
+        <field name="res_model">shift.planning.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
