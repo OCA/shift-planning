@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shift_template,access_shift_template,model_hr_shift_template,base.group_user,1,1,1,1
+access_shift_planning,access_shift_planning,model_hr_shift_planning,base.group_user,1,1,1,1
+access_shift_planning_shift,access_shift_planning_shift,model_hr_shift_planning_shift,base.group_user,1,1,1,1
+access_shift_planning_line,access_shift_planning_line,model_hr_shift_planning_line,base.group_user,1,1,1,1
