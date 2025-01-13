@@ -17,6 +17,7 @@
                                 name="from_planning_id"
                                 attrs="{'invisible': [('generation_type', '=', 'from_last')]}"
                             />
+                            <field name="copy_shift_details" />
                         </group>
                         <group string="Generate for this week">
                             <field name="week_number" />
