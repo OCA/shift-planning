@@ -3,7 +3,7 @@
 {
     "name": "Employees Shifts and public holidays",
     "summary": "Avoid planning shifts on holidays",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/shift-planning",
