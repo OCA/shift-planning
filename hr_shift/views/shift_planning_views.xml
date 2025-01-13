@@ -491,7 +491,17 @@
                             <field name="employee_id" readonly="1" />
                         </group>
                         <group>
-                            <field name="template_id" string="Shift" />
+                            <field
+                                name="template_id"
+                                string="Shift"
+                                readonly="True"
+                                groups="!hr_shift.group_shift_manager"
+                            />
+                            <field
+                                name="template_id"
+                                string="Shift"
+                                groups="hr_shift.group_shift_manager"
+                            />
                             <field name="start_time" readonly="1" />
                             <field name="end_time" readonly="1" />
                         </group>

@@ -1,5 +1,6 @@
 from . import res_company
 from . import resource_calendar
+from . import resource_calendar_leaves
 from . import res_config_settings
 from . import shift_planning
 from . import shift_template
