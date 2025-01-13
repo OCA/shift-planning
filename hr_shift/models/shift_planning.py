@@ -99,7 +99,7 @@ class ShiftPlanning(models.Model):
         for planning in self.filtered("start_date"):
             planning.year, planning.week_number, *_ = planning.start_date.isocalendar()
 
-    @api.depends("shift_ids")
+    @api.depends("shift_ids", "shift_ids.reviewed")
     def _compute_issued_shift_ids(self):
         for plan in self:
             plan.issued_shift_ids = (
