@@ -364,6 +364,23 @@
                 <field name="employee_id" />
                 <field name="template_id" />
                 <field name="planning_id" />
+                <filter
+                    name="filter_my_shifts"
+                    string="My shifts"
+                    domain="[('employee_id.user_id', '=', uid)]"
+                />
+                <group string="Group By">
+                    <filter
+                        name="group_template"
+                        string="Template"
+                        context="{'group_by':'template_id'}"
+                    />
+                    <filter
+                        name="group_employee"
+                        string="Employee"
+                        context="{'group_by':'employee_id'}"
+                    />
+                </group>
             </search>
         </field>
     </record>
@@ -371,7 +388,7 @@
         <field name="model">hr.shift.planning.line</field>
         <field name="arch" type="xml">
             <tree create="0">
-                <field name="employee_id" />
+                <field name="employee_id" widget="many2one_avatar_employee" />
                 <field name="template_id" />
                 <field name="day_number" />
                 <field name="start_time" />
@@ -465,14 +482,14 @@
                 date_start="start_time"
                 date_stop="end_time"
                 mode="month"
-                scales="week,month"
+                scales="week,month,year"
                 color="color"
                 event_open_popup="1"
                 create="0"
                 delete="0"
             >
-                <field name="template_id" />
-                <field name="employee_id" />
+                <field name="template_id" filters="1" color="color" />
+                <field name="employee_id" filters="1" />
             </calendar>
         </field>
     </record>
@@ -533,12 +550,8 @@
     <record id="my_shifts_planning_action" model="ir.actions.act_window">
         <field name="res_model">hr.shift.planning.line</field>
         <field name="view_mode">calendar,tree</field>
-        <field
-            name="context"
-        >{'group_by': ['start_time:month', 'start_time:week']}</field>
-        <field
-            name="domain"
-        >[('employee_id.user_id', '=', uid), ('state', '!=', 'unassigned')]</field>
+        <field name="context">{'search_default_filter_my_shifts': 1}</field>
+        <field name="domain">[('state', '!=', 'unassigned')]</field>
     </record>
     <record id="shift_planning_action" model="ir.actions.act_window">
         <field name="res_model">hr.shift.planning</field>
