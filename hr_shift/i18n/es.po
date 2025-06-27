@@ -39,7 +39,8 @@ msgid "Basic Employee"
 msgstr "Empleado Básico"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__color model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__color
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__color
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__color
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__color
 msgid "Color"
 msgstr ""
@@ -71,8 +72,12 @@ msgstr "Copiar desde la última planificación"
 
 #. module: hr_shift
 #: model:ir.model.fields,help:hr_shift.field_shift_planning_wizard__copy_shift_details
-msgid "Copy shift planning details. For example, an employee that goes half the week in a shift and the other half in other"
-msgstr "Copiar los detalles de los turnos. Por ejemplo, un empleado que tenga la mitad de la semana en un turno y la otra mitad en otro"
+msgid ""
+"Copy shift planning details. For example, an employee that goes half the "
+"week in a shift and the other half in other"
+msgstr ""
+"Copiar los detalles de los turnos. Por ejemplo, un empleado que tenga la "
+"mitad de la semana en un turno y la otra mitad en otro"
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
@@ -85,21 +90,26 @@ msgid "Create new plannings and their shifts"
 msgstr "Crear nuevas planificaciones y sus turnos"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__create_uid model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__create_uid
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__create_uid model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__create_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__create_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__create_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__create_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__create_uid
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__create_date model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__create_date
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__create_date model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__create_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__create_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__create_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__create_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__create_date
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_employee__current_shift_id model:ir.model.fields,field_description:hr_shift.field_hr_employee_base__current_shift_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_employee__current_shift_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_employee_base__current_shift_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_employee_public__current_shift_id
 msgid "Current Shift"
 msgstr "Turno actual"
@@ -133,20 +143,30 @@ msgstr "Datos del día"
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
 msgid ""
 "Default working week\n"
-"                            <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" role=\"img\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
+"                            <span class=\"fa fa-lg fa-building-o\" "
+"title=\"Values set here are company-specific.\" role=\"img\" aria-"
+"label=\"Values set here are company-specific.\" groups=\"base."
+"group_multi_company\"/>"
 msgstr ""
 "Semana laboral por defecto\n"
-"                            <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" role=\"img\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
+"                            <span class=\"fa fa-lg fa-building-o\" "
+"title=\"Values set here are company-specific.\" role=\"img\" aria-"
+"label=\"Values set here are company-specific.\" groups=\"base."
+"group_multi_company\"/>"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__display_name model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__display_name
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__display_name model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__display_name
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__display_name
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__display_name
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__display_name
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__employee_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "Employee"
 msgstr "Empleado"
 
@@ -156,7 +176,8 @@ msgid "End Date"
 msgstr "Fecha final"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__end_time model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__end_time
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__end_time
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__end_time
 msgid "End Time"
 msgstr "Hora final"
 
@@ -166,14 +187,20 @@ msgid "End hour"
 msgstr "Hora final"
 
 #. module: hr_shift
-#: model:ir.model.fields,help:hr_shift.field_hr_shift_planning_line__reviewed model:ir.model.fields,help:hr_shift.field_hr_shift_planning_shift__reviewed
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_planning_line__reviewed
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_planning_shift__reviewed
 msgid "For unavailable shifts that we don't want to be listed as issued"
-msgstr "Para marcar los turnos sin disponibilidad que no queremos que aparezcan listados como incidencias"
+msgstr ""
+"Para marcar los turnos sin disponibilidad que no queremos que aparezcan "
+"listados como incidencias"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__4
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__4 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__4
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__4 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__4
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__4
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__4
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__4
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__4
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__4
 #, python-format
 msgid "Friday"
 msgstr "Viernes"
@@ -195,7 +222,8 @@ msgstr "Generar"
 
 #. module: hr_shift
 #. openerp-web
-#: code:addons/hr_shift/static/src/js/generate_planning.js:0 code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
+#: code:addons/hr_shift/static/src/js/generate_planning.js:0
+#: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
 #, python-format
 msgid "Generate Planning"
 msgstr "Generar planificación"
@@ -226,7 +254,8 @@ msgid "Generate shifts"
 msgstr "Generar turnos"
 
 #. module: hr_shift
-#: model:ir.model.fields,help:hr_shift.field_hr_employee__shift_planning model:ir.model.fields,help:hr_shift.field_hr_employee_base__shift_planning
+#: model:ir.model.fields,help:hr_shift.field_hr_employee__shift_planning
+#: model:ir.model.fields,help:hr_shift.field_hr_employee_base__shift_planning
 #: model:ir.model.fields,help:hr_shift.field_hr_employee_public__shift_planning
 msgid "Generate shifts for this employee in the shifts plannings"
 msgstr "Generar turnos para este empleado en las planificaciones de turnos"
@@ -235,6 +264,11 @@ msgstr "Generar turnos para este empleado en las planificaciones de turnos"
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__generation_type
 msgid "Generation Type"
 msgstr "Tipo de generación"
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
+msgid "Group By"
+msgstr ""
 
 #. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__holiday
@@ -252,8 +286,10 @@ msgid "How?"
 msgstr "¿Cómo?"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__id model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__id
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__id model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__id
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__id
 msgid "ID"
 msgstr "ID (identificación)"
@@ -274,27 +310,34 @@ msgid "Issued Shifts Count"
 msgstr "Cuenta de turnos con incidencia"
 
 #. module: hr_shift
-#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
 msgid "Issues"
 msgstr "Incidencias"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning____last_update model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line____last_update
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift____last_update model:ir.model.fields,field_description:hr_shift.field_hr_shift_template____last_update
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning____last_update
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line____last_update
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift____last_update
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template____last_update
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__write_uid model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__write_uid
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__write_uid model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__write_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__write_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__write_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__write_uid
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__write_uid
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__write_date model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__write_date
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__write_date model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__write_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__write_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__write_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__write_date
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__write_date
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
@@ -310,15 +353,19 @@ msgid "Lines Data"
 msgstr "Datos de línea"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__0
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__0
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__0 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__0
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__0
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__0
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__0
 #, python-format
 msgid "Monday"
 msgstr "Lunes"
 
 #. module: hr_shift
 #: model:ir.ui.menu,name:hr_shift.my_shifts_menu
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "My shifts"
 msgstr "Mis turnos"
 
@@ -348,7 +395,8 @@ msgid "Planned"
 msgstr "Planificado"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__planning_id model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__planning_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__planning_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__planning_id
 #: model:ir.ui.menu,name:hr_shift.shift_planning_menu
 msgid "Planning"
 msgstr "Planificación"
@@ -374,14 +422,18 @@ msgid "Resource Working Time"
 msgstr "Tiempo de Trabajo de Recursos"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__reviewed model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__reviewed
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__reviewed
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__reviewed
 msgid "Reviewed"
 msgstr "Revisado"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__5
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__5 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__5
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__5 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__5
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__5
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__5
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__5
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__5
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__5
 #, python-format
 msgid "Saturday"
 msgstr "Sábado"
@@ -393,17 +445,23 @@ msgstr "Marcar como revisado"
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
-msgid "Set default company's default working start and end day to be used in shifts span"
-msgstr "Establecer en la compañía unos días de trabajo de principio y final por defecto que se utilizarán en los turnos"
+msgid ""
+"Set default company's default working start and end day to be used in shifts "
+"span"
+msgstr ""
+"Establecer en la compañía unos días de trabajo de principio y final por "
+"defecto que se utilizarán en los turnos"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__shift_ids model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__shift_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__shift_ids
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__shift_id
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_form
 msgid "Shift"
 msgstr "Turno"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_res_company__shift_end_day model:ir.model.fields,field_description:hr_shift.field_res_config_settings__shift_end_day
+#: model:ir.model.fields,field_description:hr_shift.field_res_company__shift_end_day
+#: model:ir.model.fields,field_description:hr_shift.field_res_config_settings__shift_end_day
 msgid "Shift End Day"
 msgstr "Día final del turno"
 
@@ -413,13 +471,15 @@ msgid "Shift Manager"
 msgstr "Responsable de turnos"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_employee__shift_planning model:ir.model.fields,field_description:hr_shift.field_hr_employee_base__shift_planning
+#: model:ir.model.fields,field_description:hr_shift.field_hr_employee__shift_planning
+#: model:ir.model.fields,field_description:hr_shift.field_hr_employee_base__shift_planning
 #: model:ir.model.fields,field_description:hr_shift.field_hr_employee_public__shift_planning
 msgid "Shift Planning"
 msgstr "Planificación de turnos"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_res_company__shift_start_day model:ir.model.fields,field_description:hr_shift.field_res_config_settings__shift_start_day
+#: model:ir.model.fields,field_description:hr_shift.field_res_company__shift_start_day
+#: model:ir.model.fields,field_description:hr_shift.field_res_config_settings__shift_start_day
 msgid "Shift Start Day"
 msgstr "Día de comienzo del turno"
 
@@ -429,18 +489,22 @@ msgid "Shift details"
 msgstr "Detalles del turno"
 
 #. module: hr_shift
-#: model:ir.actions.act_window,name:hr_shift.my_shifts_planning_action model:ir.actions.act_window,name:hr_shift.shift_planning_day_detail_action model:ir.actions.act_window,name:hr_shift.shift_planning_line_action
+#: model:ir.actions.act_window,name:hr_shift.my_shifts_planning_action
+#: model:ir.actions.act_window,name:hr_shift.shift_planning_day_detail_action
+#: model:ir.actions.act_window,name:hr_shift.shift_planning_line_action
 #: model:ir.model,name:hr_shift.model_hr_shift_planning_line
 msgid "Shift of the day for the employee"
 msgstr "Turno del día para el empleado"
 
 #. module: hr_shift
-#: model:ir.actions.act_window,name:hr_shift.shift_planning_shift_action model:ir.model,name:hr_shift.model_hr_shift_planning_shift
+#: model:ir.actions.act_window,name:hr_shift.shift_planning_shift_action
+#: model:ir.model,name:hr_shift.model_hr_shift_planning_shift
 msgid "Shift of the week for a given employee"
 msgstr "Turno de la semana para un empleado dado"
 
 #. module: hr_shift
-#: model:ir.actions.act_window,name:hr_shift.shift_planning_action model:ir.model,name:hr_shift.model_hr_shift_planning
+#: model:ir.actions.act_window,name:hr_shift.shift_planning_action
+#: model:ir.model,name:hr_shift.model_hr_shift_planning
 msgid "Shift plannings"
 msgstr "Planificaciones de turnos"
 
@@ -450,9 +514,14 @@ msgid "Shift span"
 msgstr "Alcance del turno"
 
 #. module: hr_shift
-#: model:ir.actions.act_window,name:hr_shift.shift_template_action model:ir.model,name:hr_shift.model_hr_shift_template model:ir.module.category,name:hr_shift.module_hr_shift
-#: model:ir.ui.menu,name:hr_shift.shift_planning_root model:ir.ui.menu,name:hr_shift.shift_template_menu model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
-#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban
+#: model:ir.actions.act_window,name:hr_shift.shift_template_action
+#: model:ir.model,name:hr_shift.model_hr_shift_template
+#: model:ir.module.category,name:hr_shift.module_hr_shift
+#: model:ir.ui.menu,name:hr_shift.shift_planning_root
+#: model:ir.ui.menu,name:hr_shift.shift_template_menu
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban
 msgid "Shifts"
 msgstr "Turnos"
 
@@ -467,7 +536,8 @@ msgid "Start Date"
 msgstr "Fecha de inicio"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__start_time model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__start_time
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__start_time
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__start_time
 msgid "Start Time"
 msgstr "Hora de inicio"
 
@@ -477,21 +547,27 @@ msgid "Start hour"
 msgstr "Hora de inicio"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__state model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__state
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__state
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__state
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__state
 msgid "State"
 msgstr "Estado"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__6
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__6 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__6
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__6 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__6
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__6
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__6
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__6
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__6
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__6
 #, python-format
 msgid "Sunday"
 msgstr "Domingo"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__template_id model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__template_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__template_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__template_id
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "Template"
 msgstr "Plantilla"
 
@@ -499,28 +575,38 @@ msgstr "Plantilla"
 #: code:addons/hr_shift/models/shift_planning.py:0
 #, python-format
 msgid "This employee is on leave so can't be assigned to this shift"
-msgstr "Este empleado está ausente, de modo que no puede ser asignado a este turno"
+msgstr ""
+"Este empleado está ausente, de modo que no puede ser asignado a este turno"
 
 #. module: hr_shift
 #: model:ir.model.fields,help:hr_shift.field_hr_shift_template__tz
-msgid "This field is used in order to define in which timezone the employees will work."
-msgstr "Este campo se utiliza para determinar la zona horaria en la que trabajarán los empleados."
+msgid ""
+"This field is used in order to define in which timezone the employees will "
+"work."
+msgstr ""
+"Este campo se utiliza para determinar la zona horaria en la que trabajarán "
+"los empleados."
 
 #. module: hr_shift
 #: code:addons/hr_shift/models/shift_planning.py:0
 #, python-format
-msgid "This is a public holiday and the employee isn't available for this shift"
+msgid ""
+"This is a public holiday and the employee isn't available for this shift"
 msgstr "Este día es festivo y el empleado no está disponible para este turno"
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
 msgid "This will remove the current shifts assignations for this planning"
-msgstr "Se borrarán todas las asignaciones de turno actuales para esta planificación"
+msgstr ""
+"Se borrarán todas las asignaciones de turno actuales para esta planificación"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__3
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__3 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__3
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__3 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__3
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__3
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__3
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__3
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__3
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__3
 #, python-format
 msgid "Thursday"
 msgstr "Jueves"
@@ -531,9 +617,12 @@ msgid "Timezone"
 msgstr "Zona horaria"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__1
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__1 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__1
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__1 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__1
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__1
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__1
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__1
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__1
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__1
 #, python-format
 msgid "Tuesday"
 msgstr "Martes"
@@ -554,15 +643,19 @@ msgid "Unavailable"
 msgstr "No disponible"
 
 #. module: hr_shift
-#: code:addons/hr_shift/models/shift_template.py:0 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__2
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__2 model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__2
-#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__2 model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__2
+#: code:addons/hr_shift/models/shift_template.py:0
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__2
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__2
+#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__2
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__2
+#: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__2
 #, python-format
 msgid "Wednesday"
 msgstr "Miércoles"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__week_number model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__week_number
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__week_number
+#: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__week_number
 msgid "Week Number"
 msgstr "Número de semana"
 
@@ -572,7 +665,8 @@ msgid "Week gos from"
 msgstr "La semana va desde"
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__year model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__year
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__year
+#: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__year
 msgid "Year"
 msgstr "Año"
 
