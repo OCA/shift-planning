@@ -152,6 +152,7 @@ msgstr ""
 #. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "Employee"
 msgstr ""
 
@@ -249,6 +250,11 @@ msgid "Generation Type"
 msgstr ""
 
 #. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
+msgid "Group By"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__holiday
 msgid "Holiday"
 msgstr ""
@@ -343,6 +349,7 @@ msgstr ""
 
 #. module: hr_shift
 #: model:ir.ui.menu,name:hr_shift.my_shifts_menu
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "My shifts"
 msgstr ""
 
@@ -542,6 +549,7 @@ msgstr ""
 #. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__template_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__template_id
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "Template"
 msgstr ""
 
