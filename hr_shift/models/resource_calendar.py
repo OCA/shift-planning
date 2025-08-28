@@ -7,7 +7,7 @@ import pytz
 from odoo import api, models
 from odoo.tools import groupby
 
-from odoo.addons.resource.models.resource import string_to_datetime
+from odoo.addons.resource.models.utils import string_to_datetime
 
 
 class ResourceCalendar(models.Model):
@@ -30,13 +30,13 @@ class ResourceCalendar(models.Model):
         return shifts
 
     def _attendance_intervals_batch(
-        self, start_dt, end_dt, resources=None, domain=None, tz=None
+        self, start_dt, end_dt, resources=None, domain=None, tz=None, lunch=False
     ):
         # Override calendar intervals when a shift is found and substitute those
         # intervals with the ones on the shift
         # TODO: deal with TZ!
         res = super()._attendance_intervals_batch(
-            start_dt, end_dt, resources, domain, tz
+            start_dt, end_dt, resources, domain, tz, lunch
         )
         if resources:
             shift_ids = self._resource_shift_for_datetime_range(

@@ -24,9 +24,9 @@ class TestHrShift(TestHrShiftBase):
             }
         )
 
-    def test_hr_shift_planning_name_get(self):
+    def test_hr_shift_planning_display_name(self):
         self.assertEqual(
-            self.planning.name_get()[0][1], "2025 Week 3 (2025-01-13 - 2025-01-19)"
+            self.planning.display_name, "2025 Week 3 (2025-01-13 - 2025-01-19)"
         )
 
     def test_attendance_intervals_batch(self):

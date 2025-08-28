@@ -67,18 +67,13 @@ class ShiftPlanning(models.Model):
         result.update({"year": year, "week_number": week_number})
         return result
 
-    def name_get(self):
-        result = [
-            (
-                planning.id,
-                (
-                    f"{planning.year} {_('Week')} {planning.week_number} "
-                    f"({planning.start_date} - {planning.end_date})"
-                ),
+    @api.depends("year", "week_number", "start_date", "end_date")
+    def _compute_display_name(self):
+        for planning in self:
+            planning.display_name = (
+                f"{planning.year} {_('Week')} {planning.week_number} "
+                f"({planning.start_date} - {planning.end_date})"
             )
-            for planning in self
-        ]
-        return result
 
     @api.depends("shift_ids")
     def _compute_shifts_count(self):
@@ -270,11 +265,11 @@ class ShiftPlanningShift(models.Model):
                 shift_lines.append(
                     {
                         "shift_id": shift.id,
+                        "template_id": shift.template_id.id,
                         "day_number": str(shift_date["weekday"]),
                     }
                 )
-            lines = shift.line_ids.create(shift_lines)
-            lines._compute_state()
+            shift.line_ids.create(shift_lines)
 
     def write(self, vals):
         if "template_id" not in vals:
@@ -328,6 +323,12 @@ class ShiftPlanningLine(models.Model):
     start_time = fields.Datetime(compute="_compute_shift_time", store=True)
     end_time = fields.Datetime(compute="_compute_shift_time", store=True)
     start_date = fields.Date(string="Date", compute="_compute_start_date")
+    duration_hours = fields.Float(
+        string="Duration (Hours)", compute="_compute_duration", store=True
+    )
+    duration_days = fields.Float(
+        string="Duration (Days)", compute="_compute_duration", store=True
+    )
     state = fields.Selection(
         selection=[
             ("assigned", "Assigned"),
@@ -382,22 +383,17 @@ class ShiftPlanningLine(models.Model):
     def _group_expand_template_id(self, templates, domain, order):
         return self.env["hr.shift.template"].search([])
 
-    def name_get(self):
-        result = [
-            (
-                line.id,
-                (
-                    f"{_(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
-                    f"""
-                    {line.template_id.name
-                    or dict(
-                        self._fields['state']._description_selection(self.env)
-                    )[line.state]}"""
-                ),
+    @api.depends("day_number", "template_id", "state")
+    def _compute_display_name(self):
+        for line in self:
+            line.display_name = (
+                f"{_(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
+                f"""
+                {line.template_id.name
+                or dict(
+                    self._fields['state']._description_selection(self.env)
+                )[line.state]}"""
             )
-            for line in self
-        ]
-        return result
 
     @api.depends("planning_id", "day_number", "template_id")
     def _compute_shift_time(self):
@@ -440,6 +436,17 @@ class ShiftPlanningLine(models.Model):
                 .astimezone(local_tz)
                 .replace(tzinfo=None)
             )
+
+    @api.depends("start_time", "end_time")
+    def _compute_duration(self):
+        for line in self:
+            if line.start_time and line.end_time:
+                delta = line.end_time - line.start_time
+                line.duration_hours = delta.total_seconds() / 3600.0
+                line.duration_days = 1
+            else:
+                line.duration_hours = 0.0
+                line.duration_days = 0.0
 
     def _is_public_holiday(self):
         # To override
