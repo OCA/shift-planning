@@ -78,3 +78,9 @@ class ShiftTemplate(models.Model):
                 )
             current_date += timedelta(days=1)
         return date_list
+
+    @api.model
+    def create(self, vals):
+        if not vals.get("name"):
+            return self.env["hr.shift.template"]
+        return super().create(vals)

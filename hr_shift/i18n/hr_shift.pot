@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,6 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
 #, python-format
 msgid "%(day)s shifts of %(planning)s"
@@ -32,6 +33,11 @@ msgstr ""
 #. module: hr_shift
 #: model:ir.model,name:hr_shift.model_hr_employee_base
 msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_wizard_form
+msgid "Cancel"
 msgstr ""
 
 #. module: hr_shift
@@ -135,9 +141,7 @@ msgstr ""
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
-msgid ""
-"Default working week\n"
-"                            <span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" role=\"img\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\"/>"
+msgid "Default Working Week"
 msgstr ""
 
 #. module: hr_shift
@@ -147,6 +151,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__display_name
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__duration_days
+msgid "Duration (Days)"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__duration_hours
+msgid "Duration (Hours)"
 msgstr ""
 
 #. module: hr_shift
@@ -179,6 +193,7 @@ msgid "For unavailable shifts that we don't want to be listed as issued"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__4
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__4
@@ -205,8 +220,9 @@ msgid "Generate"
 msgstr ""
 
 #. module: hr_shift
-#. openerp-web
-#: code:addons/hr_shift/static/src/js/generate_planning.js:0
+#. odoo-javascript
+#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
+#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
 #, python-format
 msgid "Generate Planning"
@@ -300,15 +316,6 @@ msgid "Issues"
 msgstr ""
 
 #. module: hr_shift
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning____last_update
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line____last_update
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift____last_update
-#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template____last_update
-#: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__write_uid
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__write_uid
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__write_uid
@@ -337,6 +344,7 @@ msgid "Lines Data"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__0
@@ -412,6 +420,7 @@ msgid "Reviewed"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__5
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__5
@@ -536,6 +545,7 @@ msgid "State"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__6
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__6
@@ -554,6 +564,7 @@ msgid "Template"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
 #, python-format
 msgid "This employee is on leave so can't be assigned to this shift"
@@ -567,6 +578,7 @@ msgid ""
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
 #, python-format
 msgid ""
@@ -579,6 +591,7 @@ msgid "This will remove the current shifts assignations for this planning"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__3
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__3
@@ -595,6 +608,7 @@ msgid "Timezone"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__1
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__1
@@ -621,6 +635,7 @@ msgid "Unavailable"
 msgstr ""
 
 #. module: hr_shift
+#. odoo-python
 #: code:addons/hr_shift/models/shift_template.py:0
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__day_number__2
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_end__2

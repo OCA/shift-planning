@@ -17,21 +17,21 @@
                         name="generate_shifts"
                         class="btn btn-primary"
                         string="Generate shifts"
-                        attrs="{'invisible': ['|', ('state', '!=', 'new'), ('end_date', '=', False)]}"
+                        invisible="state != 'new' or not end_date"
                     />
                     <button
                         type="object"
                         name="copy_to_planning"
                         class="btn btn-secondary"
                         string="Copy to new planning"
-                        attrs="{'invisible': ['|', ('state', '=', 'new'), ('shift_ids', '=',  [])]}"
+                        invisible="state == 'new' or not shift_ids"
                     />
                     <button
                         type="object"
                         name="regenerate_shifts"
                         class="btn btn-secondary"
                         string="Regenerate shifts"
-                        attrs="{'invisible': ['|', ('state', '!=', 'assignment'), ('shift_ids', '=',  [])]}"
+                        invisible="state != 'assignment' or not shift_ids"
                         confirm="This will remove the current shifts assignations for this planning"
                     />
                 </header>
@@ -41,7 +41,7 @@
                             class="oe_stat_button"
                             name="action_view_shifts"
                             type="object"
-                            attrs="{'invisible':[('state', '=', 'new')]}"
+                            invisible="state == 'new'"
                             icon="fa-link"
                         >
                             <field
@@ -54,7 +54,7 @@
                             class="oe_stat_button"
                             name="action_view_issued_shifts"
                             type="object"
-                            attrs="{'invisible':[('state', '=', 'new')]}"
+                            invisible="state == 'new' or issued_shifts_count == 0"
                             icon="fa-unlink"
                         >
                             <field
@@ -66,20 +66,11 @@
                     </div>
                     <group>
                         <group>
-                            <field
-                                name="year"
-                                attrs="{'readonly': [('state', '!=', 'new')]}"
-                            />
-                            <field
-                                name="week_number"
-                                attrs="{'readonly': [('state', '!=', 'new')]}"
-                            />
+                            <field name="year" readonly="state != 'new'" />
+                            <field name="week_number" readonly="state != 'new'" />
                         </group>
                         <group>
-                            <field
-                                name="start_date"
-                                attrs="{'readonly': [('state', '!=', 'new')]}"
-                            />
+                            <field name="start_date" readonly="state != 'new'" />
                             <field name="end_date" force_save="1" />
                         </group>
                     </group>
@@ -90,14 +81,14 @@
     <record id="shift_planning_kanban" model="ir.ui.view">
         <field name="model">hr.shift.planning</field>
         <field name="arch" type="xml">
-            <kanban class="p-0" js_class="shift_planning_kanban">
+            <kanban class="o_kanban_full_width" js_class="shift_planning_kanban">
                 <field name="display_name" />
                 <field name="days_data" />
                 <field name="issued_shifts_count" />
                 <field name="shifts_count" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click w-100 m-0 p-4">
+                        <div class="oe_kanban_global_click m-0 p-4">
                             <div class="row">
                                 <div class="col-4">
                                     <button
@@ -106,7 +97,7 @@
                                         class="btn btn-primary btn-lg"
                                         t-if="record.shifts_count.raw_value"
                                     ><span
-                                            class="badge badge-light text-primary"
+                                            class="badge text-bg-light text-primary"
                                             t-esc="record.shifts_count.value"
                                         /> Shifts</button>
                                     <button
@@ -115,7 +106,7 @@
                                         class="btn btn-danger btn-lg"
                                         t-if="record.issued_shifts_count.raw_value"
                                     ><span
-                                            class="badge badge-light text-danger"
+                                            class="badge text-bg-light text-danger"
                                             t-esc="record.issued_shifts_count.value"
                                         /> Issues</button>
                                 </div>
@@ -129,7 +120,9 @@
                                             <t
                                                 t-foreach="record.days_data.raw_value"
                                                 t-as="day"
+                                                t-key="day"
                                             >
+                                                <h1><t t-esc="day.state" /></h1>
                                                 <t t-if="day.state === 'assigned'">
                                                     <t
                                                         t-set="color"
@@ -161,7 +154,7 @@
                                                     type="object"
                                                     name="action_view_day_shifts"
                                                     t-attf-class="btn border btn btn-#{color} text-center font-weight-bold"
-                                                    t-attf-data-context="{'weekday_number': #{day_value.weekday_number}}"
+                                                    t-attf-context="{'weekday_number': #{day_value.weekday_number} }"
                                                 >
                                                     <small
                                                         t-esc="day_value.weekday.slice(0, 3)"
@@ -231,7 +224,7 @@
             <tree editable="top">
                 <field name="employee_id" />
                 <field name="template_id" />
-                <field name="planning_id" invisible="1" />
+                <field name="planning_id" column_invisible="True" />
             </tree>
         </field>
     </record>
@@ -265,17 +258,17 @@
                                     <span t-else="" class="fa fa-square-o" />
                                 </a>
                             </div>
-                            <div class="row no-gutters o_kanban_shift_employee">
+                            <div class="row g-0 o_kanban_shift_employee">
                                 <div class="col-1">
                                     <img
                                         t-att-src="kanban_image('hr.employee', 'image_128', record.employee_id.raw_value)"
                                         t-att-title="record.employee_id.value"
                                         t-att-alt="record.employee_id.value"
-                                        class="oe_kanban_avatar o_image_24_cover float-left mr4"
+                                        class="oe_kanban_avatar o_image_24_cover float-start me-4"
                                     />
                                 </div>
                                 <div class="col-11">
-                                    <strong class="h4 ml-2">
+                                    <strong class="h4 ms-2">
                                         <t t-esc="record.employee_id.value" />
                                     </strong>
                                 </div>
@@ -291,6 +284,7 @@
                                             <t
                                                 t-foreach="record.lines_data.raw_value"
                                                 t-as="line"
+                                                t-key="line"
                                             >
                                                 <t
                                                     t-if="line_value.state === 'assigned'"
@@ -334,7 +328,7 @@
                                                     t-attf-class="btn border btn-sm #{color}"
                                                     type="object"
                                                     name="action_view_shift_details"
-                                                    t-attf-data-context="{'shift_line_id': #{line}}"
+                                                    t-attf-context="{'shift_line_id': #{line} }"
                                                 ><t
                                                         t-esc="line_value.day.slice(0, 2)"
                                                     /></button>
@@ -393,8 +387,8 @@
                 <field name="day_number" />
                 <field name="start_time" />
                 <field name="end_time" />
-                <field name="planning_id" invisible="1" />
-                <field name="shift_id" invisible="1" />
+                <field name="planning_id" column_invisible="True" />
+                <field name="shift_id" column_invisible="True" />
             </tree>
         </field>
     </record>
@@ -431,7 +425,7 @@
                                     </div>
                                     <span
                                         t-if="['holiday', 'on_leave'].includes(record.state.raw_value)"
-                                        class="badge badge-secondary"
+                                        class="badge bg-secondary"
                                         t-esc="record.state.value"
                                     />
                                 </div>
@@ -451,7 +445,7 @@
                                         t-if="record.template_id.raw_value"
                                         title="Shift span"
                                     >
-                                        <span class="badge badge-light"><span
+                                        <span class="badge bg-light"><span
                                                 t-esc="record.template_id.value"
                                             /></span>
                                         <i
@@ -497,7 +491,7 @@
         <field name="model">hr.shift.planning.line</field>
         <field name="arch" type="xml">
             <form>
-                <header position="inside">
+                <header>
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
