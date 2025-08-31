@@ -9,7 +9,7 @@
             >
             Generate Planning
         </button>
-    </t>
+        </t>
     </t>
 
     <t t-name="hr_shift.ListView.Buttons" owl="1">

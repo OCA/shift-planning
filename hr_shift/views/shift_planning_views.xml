@@ -97,18 +97,18 @@
                                         class="btn btn-primary btn-lg"
                                         t-if="record.shifts_count.raw_value"
                                     ><span
-                                            class="badge text-bg-light text-primary"
-                                            t-esc="record.shifts_count.value"
-                                        /> Shifts</button>
+                                        class="badge text-bg-light text-primary"
+                                        t-esc="record.shifts_count.value"
+                                    /> Shifts</button>
                                     <button
                                         name="action_view_issued_shifts"
                                         type="object"
                                         class="btn btn-danger btn-lg"
                                         t-if="record.issued_shifts_count.raw_value"
                                     ><span
-                                            class="badge text-bg-light text-danger"
-                                            t-esc="record.issued_shifts_count.value"
-                                        /> Issues</button>
+                                        class="badge text-bg-light text-danger"
+                                        t-esc="record.issued_shifts_count.value"
+                                    /> Issues</button>
                                 </div>
                                 <div class="col-4">
                                     <div t-if="record.days_data.raw_value">
@@ -122,7 +122,9 @@
                                                 t-as="day"
                                                 t-key="day"
                                             >
-                                                <h1><t t-esc="day.state" /></h1>
+                                                <h1>
+                                                    <t t-esc="day.state" />
+                                                </h1>
                                                 <t t-if="day.state === 'assigned'">
                                                     <t
                                                         t-set="color"
@@ -159,7 +161,8 @@
                                                     <small
                                                         t-esc="day_value.weekday.slice(0, 3)"
                                                         class="text-uppercase"
-                                                    /><br />
+                                                    />
+                                                    <br />
                                                     <small t-esc="day_value.day" />
                                                 </button>
                                             </t>
@@ -329,9 +332,11 @@
                                                     type="object"
                                                     name="action_view_shift_details"
                                                     t-attf-context="{'shift_line_id': #{line} }"
-                                                ><t
+                                                >
+                                                    <t
                                                         t-esc="line_value.day.slice(0, 2)"
-                                                    /></button>
+                                                    />
+                                                </button>
                                             </t>
                                         </div>
                                     </div>
@@ -415,12 +420,14 @@
                                     class="o_kanban_record_headings o_kanban_card_header_title"
                                 >
                                     <div t-if="context.multi_employee_mode">
-                                        <strong><field name="employee_id" /></strong>
+                                        <strong>
+                                            <field name="employee_id" />
+                                        </strong>
                                     </div>
                                     <div t-else="">
-                                        <strong class="text-uppercase"><field
-                                                name="day_number"
-                                            /></strong>
+                                        <strong class="text-uppercase">
+                                            <field name="day_number" />
+                                        </strong>
                                         <field name="start_date" />
                                     </div>
                                     <span
@@ -436,7 +443,9 @@
                                         type="object"
                                         name="action_unassign_shift"
                                         title="Unassign"
-                                    ><i class="fa fa-times" role="img" /></button>
+                                    >
+                                        <i class="fa fa-times" role="img" />
+                                    </button>
                                 </div>
                             </div>
                             <div class="container o_kanban_card_content">
@@ -445,21 +454,20 @@
                                         t-if="record.template_id.raw_value"
                                         title="Shift span"
                                     >
-                                        <span class="badge bg-light"><span
-                                                t-esc="record.template_id.value"
-                                            /></span>
+                                        <span class="badge bg-light">
+                                            <span t-esc="record.template_id.value" />
+                                        </span>
                                         <i
                                             class="fa fa-arrow-circle-right text-success"
                                             role="img"
-                                        /> <field
-                                            name="start_hour"
-                                            widget="float_time"
                                         />
+                                        <field name="start_hour" widget="float_time" />
                                         <i class="fa fa-long-arrow-right" role="img" />
                                         <i
                                             class="fa fa-clock-o text-danger"
                                             role="img"
-                                        /> <field name="end_hour" widget="float_time" />
+                                        />
+                                        <field name="end_hour" widget="float_time" />
                                     </p>
                                 </div>
                             </div>
