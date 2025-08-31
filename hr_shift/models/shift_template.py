@@ -4,18 +4,21 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
+from odoo.tools import LazyTranslate
 
 from odoo.addons.base.models.res_partner import _tz_get
 
+_lt = LazyTranslate(__name__, default_lang="en_US")
+
 WEEK_DAYS_SELECTION = [
-    ("0", _("Monday")),
-    ("1", _("Tuesday")),
-    ("2", _("Wednesday")),
-    ("3", _("Thursday")),
-    ("4", _("Friday")),
-    ("5", _("Saturday")),
-    ("6", _("Sunday")),
+    ("0", str(_lt("Monday"))),
+    ("1", str(_lt("Tuesday"))),
+    ("2", str(_lt("Wednesday"))),
+    ("3", str(_lt("Thursday"))),
+    ("4", str(_lt("Friday"))),
+    ("5", str(_lt("Saturday"))),
+    ("6", str(_lt("Sunday"))),
 ]
 
 
@@ -79,8 +82,13 @@ class ShiftTemplate(models.Model):
             current_date += timedelta(days=1)
         return date_list
 
-    @api.model
-    def create(self, vals):
-        if not vals.get("name"):
+    @api.model_create_multi
+    def create(self, vals_list):
+        # Filter out records without name
+        filtered_vals_list = []
+        for vals in vals_list:
+            if vals.get("name"):
+                filtered_vals_list.append(vals)
+        if not filtered_vals_list:
             return self.env["hr.shift.template"]
-        return super().create(vals)
+        return super().create(filtered_vals_list)
