@@ -27,7 +27,7 @@
     <record id="shift_template_tree" model="ir.ui.view">
         <field name="model">hr.shift.template</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="color" widget="color_picker" />
                 <field name="name" />
                 <field name="start_time" widget="float_time" />
@@ -35,12 +35,12 @@
                 <field name="day_of_week_start" />
                 <field name="day_of_week_end" />
                 <field name="tz" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="shift_template_action" model="ir.actions.act_window">
         <field name="res_model">hr.shift.template</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="shift_template_menu"

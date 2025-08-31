@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import {KanbanController} from "@web/views/kanban/kanban_controller";
 import {ListController} from "@web/views/list/list_controller";
 import {_t} from "@web/core/l10n/translation";
@@ -8,11 +6,12 @@ import {listView} from "@web/views/list/list_view";
 import {onWillStart} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
+import {user} from "@web/core/user";
 
 class ShiftPlanningBaseController {
     setupBase() {
         this.action = useService("action");
-        this.user = useService("user");
+        this.user = user;
         this.isHrOfficer = false;
         this.showGeneratePlanning = false;
 
