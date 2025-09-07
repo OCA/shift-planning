@@ -1,5 +1,7 @@
 # Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import Command
+
 from odoo.addons.hr_shift.tests.common import TestHrShiftBase
 
 
@@ -15,10 +17,12 @@ class TestHrShiftHolidaysPublic(TestHrShiftBase):
                 "end_date": "2025-01-19",
             }
         )
-        cls.env["hr.holidays.public"].create(
+        cls.env["calendar.public.holiday"].create(
             {
                 "year": 2025,
-                "line_ids": [(0, 0, {"date": "2025-01-14", "name": "Test line"})],
+                "line_ids": [
+                    Command.create({"date": "2025-01-14", "name": "Test line"})
+                ],
             }
         )
 

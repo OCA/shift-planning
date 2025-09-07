@@ -9,6 +9,6 @@ class ShiftPlanningLine(models.Model):
     def _is_public_holiday(self):
         if not (self.start_date and self.employee_id):
             return False
-        return self.env["hr.holidays.public"].is_public_holiday(
-            self.start_date, self.employee_id.id
+        return self.env["calendar.public.holiday"].is_public_holiday(
+            self.start_date, self.employee_id.address_id.id
         )
