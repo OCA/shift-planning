@@ -15,7 +15,7 @@ class TestHrShiftHolidaysPublic(TestHrShiftBase):
                 "end_date": "2025-01-19",
             }
         )
-        cls.env["hr.holidays.public"].create(
+        cls.env["calendar.public.holiday"].create(
             {
                 "year": 2025,
                 "line_ids": [(0, 0, {"date": "2025-01-14", "name": "Test line"})],
