@@ -262,11 +262,17 @@ class ShiftPlanningShift(models.Model):
             )
             shift_lines = []
             for shift_date in dates:
+                day_number = str(shift_date["weekday"])
+                exist_line = shift.line_ids.filtered(
+                    lambda x, day_number=day_number: x.day_number == day_number
+                )
+                if exist_line:
+                    continue
                 shift_lines.append(
                     {
                         "shift_id": shift.id,
                         "template_id": shift.template_id.id,
-                        "day_number": str(shift_date["weekday"]),
+                        "day_number": day_number,
                     }
                 )
             shift.line_ids.create(shift_lines)
@@ -277,7 +283,11 @@ class ShiftPlanningShift(models.Model):
         template = self.env["hr.shift.template"].browse(vals["template_id"] or 0)
         self.filtered(
             lambda x: x.template_id != template or not x.template_id
-        ).line_ids.unlink()
+        ).line_ids.filtered(
+            # Do not delete lines in order to try to create them later and cause the
+            # constraint error
+            lambda x: x.state not in {"holiday", "on_leave"}
+        ).unlink()
         res = super().write(vals)
         self._generate_shift_lines()
         return res
