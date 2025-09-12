@@ -38,7 +38,7 @@ class ResourceCalendar(models.Model):
         res = super()._attendance_intervals_batch(
             start_dt, end_dt, resources, domain, tz, lunch
         )
-        if resources:
+        if resources and not lunch:
             shift_ids = self._resource_shift_for_datetime_range(
                 start_dt, end_dt, resources, tz=tz
             )
