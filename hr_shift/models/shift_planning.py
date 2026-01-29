@@ -235,7 +235,7 @@ class ShiftPlanningShift(models.Model):
 
     @api.depends("line_ids")
     def _compute_lines_data(self):
-        for shift in self.filtered("line_ids"):
+        for shift in self:
             shift.lines_data = {
                 line.id: {
                     "day": dict(WEEK_DAYS_SELECTION).get(line.day_number),
@@ -276,6 +276,11 @@ class ShiftPlanningShift(models.Model):
                     }
                 )
             shift.line_ids.create(shift_lines)
+
+    def create(Self, vals_list):
+        res = super().create(vals_list)
+        res._generate_shift_lines()
+        return res
 
     def write(self, vals):
         if "template_id" not in vals:

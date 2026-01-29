@@ -216,10 +216,29 @@
             </list>
         </field>
     </record>
+    <record id="shift_planning_shift_kanban_quick_create" model="ir.ui.view">
+        <field name="name">hr.shift.planning.shift.quick_create</field>
+        <field name="model">hr.shift.planning.shift</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <div class="d-flex align-items-center">
+                        <field name="employee_id" placeholder="Employe" />
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
     <record id="shift_planning_shift_kanban" model="ir.ui.view">
         <field name="model">hr.shift.planning.shift</field>
         <field name="arch" type="xml">
-            <kanban sample="1">
+            <kanban
+                sample="1"
+                on_create="quick_create"
+                quick_create_view="hr_shift.shift_planning_shift_kanban_quick_create"
+                can_open="false"
+            >
                 <field name="id" />
                 <field name="template_id" />
                 <field name="employee_id" />
