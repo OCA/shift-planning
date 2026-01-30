@@ -43,8 +43,8 @@ class ShiftPlanningWizard(models.TransientModel):
         result = super().default_get(fields_list)
         default_vals = self.env["hr.shift.planning"].default_get([])
         result.update(
-            week_number=default_vals["week_number"],
-            year=default_vals["year"],
+            week_number=default_vals.get("week_number"),
+            year=default_vals.get("year"),
         )
         if not result.get("from_planning_id"):
             result.update(
