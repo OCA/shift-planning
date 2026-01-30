@@ -59,7 +59,12 @@ class ShiftPlanning(models.Model):
         # Get the last plan and start from there
         result = super().default_get(fields_list)
         last_plan = self._get_last_plan()
-        if not last_plan or result.get("year") or result.get("week_number"):
+        if (
+            not last_plan
+            or not last_plan.end_date
+            or result.get("year")
+            or result.get("week_number")
+        ):
             return result
         year, week_number, *_ = (
             last_plan.end_date + relativedelta(days=1)
