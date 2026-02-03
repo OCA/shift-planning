@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,12 @@ msgstr ""
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid "%(day)s shifts of %(planning)s"
+msgstr ""
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
+msgid "<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" title=\"Planning\"/>"
 msgstr ""
 
 #. module: hr_shift
@@ -164,6 +168,11 @@ msgid "Duration (Hours)"
 msgstr ""
 
 #. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban_quick_create
+msgid "Employe"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__employee_id
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
@@ -200,7 +209,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__4
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__4
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__4
-#, python-format
 msgid "Friday"
 msgstr ""
 
@@ -222,9 +230,7 @@ msgstr ""
 #. module: hr_shift
 #. odoo-javascript
 #: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
-#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
-#, python-format
 msgid "Generate Planning"
 msgstr ""
 
@@ -351,7 +357,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__0
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__0
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__0
-#, python-format
 msgid "Monday"
 msgstr ""
 
@@ -427,7 +432,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__5
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__5
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__5
-#, python-format
 msgid "Saturday"
 msgstr ""
 
@@ -512,7 +516,6 @@ msgstr ""
 #: model:ir.ui.menu,name:hr_shift.shift_template_menu
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
-#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban
 msgid "Shifts"
 msgstr ""
 
@@ -552,7 +555,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__6
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__6
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__6
-#, python-format
 msgid "Sunday"
 msgstr ""
 
@@ -566,7 +568,6 @@ msgstr ""
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid "This employee is on leave so can't be assigned to this shift"
 msgstr ""
 
@@ -580,7 +581,6 @@ msgstr ""
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid ""
 "This is a public holiday and the employee isn't available for this shift"
 msgstr ""
@@ -598,7 +598,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__3
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__3
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__3
-#, python-format
 msgid "Thursday"
 msgstr ""
 
@@ -615,7 +614,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__1
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__1
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__1
-#, python-format
 msgid "Tuesday"
 msgstr ""
 
@@ -642,7 +640,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__2
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__2
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__2
-#, python-format
 msgid "Wednesday"
 msgstr ""
 
