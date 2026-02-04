@@ -282,7 +282,7 @@ class ShiftPlanningShift(models.Model):
                 )
             shift.line_ids.create(shift_lines)
 
-    def create(Self, vals_list):
+    def create(self, vals_list):
         res = super().create(vals_list)
         res._generate_shift_lines()
         return res
