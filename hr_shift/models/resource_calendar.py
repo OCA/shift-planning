@@ -47,13 +47,15 @@ class ResourceCalendar(models.Model):
                 intervals_to_remove = []
                 resource_intervals = res[resource.id]._items
                 for shift in shifts:
+                    # Remove any other interval that belongs to any of the dates of the
+                    # shift (no matter the hours, as if the shift is around midnight,
+                    # there will be a mix of 2 dates)
                     intervals_to_remove += [
                         (start, end, resource_item)
                         for start, end, resource_item in resource_intervals
                         if (
-                            shift.start_time
-                            >= datetime.combine(start, start.min.time())
-                            and shift.end_time >= datetime.combine(end, end.min.time())
+                            shift.start_time.date() == start.date()
+                            or shift.end_time.date() == end.date()
                         )
                     ]
                     start_time = string_to_datetime(shift.start_time).astimezone(tz)
