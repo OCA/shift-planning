@@ -409,10 +409,12 @@ class ShiftPlanningLine(models.Model):
             line.display_name = (
                 f"{_(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
                 f"""
-                {line.template_id.name
-                or dict(
-                    self._fields['state']._description_selection(self.env)
-                )[line.state]}"""
+                {
+                    line.template_id.name
+                    or dict(self._fields["state"]._description_selection(self.env))[
+                        line.state
+                    ]
+                }"""
             )
 
     @api.depends("planning_id", "day_number", "template_id")
@@ -428,7 +430,7 @@ class ShiftPlanningLine(models.Model):
                 and shift.template_id._prepare_time()["end_time"]
                 or {"hour": 23, "minute": 59}
             )
-            tz = pytz.timezone(shift.template_id.tz or self.env.user.tz)
+            tz = pytz.timezone(shift.template_id.tz or self.env.user.tz or "UTC")
             start_time = tz.localize(
                 datetime.combine(
                     shift_date,
@@ -450,7 +452,7 @@ class ShiftPlanningLine(models.Model):
 
     def _compute_start_date(self):
         for shift in self:
-            local_tz = pytz.timezone(shift.template_id.tz or self.env.user.tz)
+            local_tz = pytz.timezone(shift.template_id.tz or self.env.user.tz or "UTC")
             shift.start_date = (
                 pytz.utc.localize(shift.start_time)
                 .astimezone(local_tz)
@@ -475,7 +477,7 @@ class ShiftPlanningLine(models.Model):
     def _is_on_leave(self):
         if not (self.start_time and self.end_time and self.employee_id):
             return False
-        local_tz = pytz.timezone(self.template_id.tz or self.env.user.tz)
+        local_tz = pytz.timezone(self.template_id.tz or self.env.user.tz or "UTC")
         start_time = fields.datetime.combine(
             pytz.utc.localize(self.start_time).astimezone(local_tz),
             self.start_time.min.time(),
