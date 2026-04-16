@@ -23,6 +23,17 @@ msgid "%(day)s shifts of %(planning)s"
 msgstr "Turnos del %(day)s para %(planning)s"
 
 #. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__assigned
 msgid "Assigned"
 msgstr "Asignado"
@@ -144,6 +155,11 @@ msgid "Days Data"
 msgstr "Datos del día"
 
 #. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
+msgid "Default Working Week"
+msgstr "Semana laboral por defecto"
+
+#. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__display_name
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__display_name
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__display_name
@@ -222,8 +238,8 @@ msgstr "Generar"
 
 #. module: hr_shift
 #. odoo-javascript
-#: code:addons/hr_shift/static/src/js/generate_planning.js:0
-#: code:addons/hr_shift/static/src/js/generate_planning.js:0
+#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
+#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
 #, python-format
 msgid "Generate Planning"
@@ -269,7 +285,7 @@ msgstr "Tipo de generación"
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__holiday

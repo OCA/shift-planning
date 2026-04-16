@@ -40,6 +40,7 @@ class ShiftTemplate(models.Model):
         help="This field is used in order to define in which timezone the employees "
         "will work.",
     )
+    active = fields.Boolean(default=True)
 
     def _prepare_time(self):
         def _parse_float_time(float_time):
