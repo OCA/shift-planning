@@ -21,6 +21,17 @@ msgid "%(day)s shifts of %(planning)s"
 msgstr ""
 
 #. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_search
+msgid "Archived"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__assigned
 msgid "Assigned"
 msgstr ""
