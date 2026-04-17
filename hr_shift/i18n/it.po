@@ -24,6 +24,17 @@ msgid "%(day)s shifts of %(planning)s"
 msgstr "%(day)s turni di %(planning)s"
 
 #. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_search
+msgid "Archived"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__assigned
 msgid "Assigned"
 msgstr "Assegnato"
@@ -226,7 +237,6 @@ msgstr "Genera"
 
 #. module: hr_shift
 #. odoo-javascript
-#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
 #, python-format
@@ -444,8 +454,8 @@ msgstr "Imposta come revisionato"
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
 msgid ""
-"Set default company's default working start and end day to be used in shifts"
-" span"
+"Set default company's default working start and end day to be used in shifts "
+"span"
 msgstr ""
 "Imposta il giorno di inizio e fine lavoro predefinito dell'azienda da usare "
 "nella durata dei turni"
