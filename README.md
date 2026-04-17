@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[hr_shift](hr_shift/) | 17.0.1.0.3 |  | Define shifts for employees
+[hr_shift](hr_shift/) | 17.0.1.1.0 |  | Define shifts for employees
 [hr_shift_holidays_public](hr_shift_holidays_public/) | 17.0.1.0.0 |  | Avoid planning shifts on holidays
 
 [//]: # (end addons)
