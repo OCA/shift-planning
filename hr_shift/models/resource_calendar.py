@@ -60,7 +60,9 @@ class ResourceCalendar(models.Model):
                     ]
                     start_time = string_to_datetime(shift.start_time).astimezone(tz)
                     end_time = string_to_datetime(shift.end_time).astimezone(tz)
-                    # noqa: E501 Prevent TypeError: TypeError: cannot union different models: 'hr.shift.planning.line()' and 'resource.calendar.attendance()'
+                    # noqa: E501 Prevent TypeError: TypeError: cannot
+                    # union different models: 'hr.shift.planning.line()'
+                    # and 'resource.calendar. attendance()'
                     interval_to_add_item = (
                         resource_intervals[0][2] if resource_intervals else shift
                     )

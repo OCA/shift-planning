@@ -8,36 +8,27 @@ odoo.define("hr_shift.planning_generation", function (require) {
     const core = require("web.core");
     const _t = core._t;
 
-    function renderGeneratePlanningButton() {
-        if (this.$buttons) {
+    var ShiftPlanningtListController = ListController.extend({
+        start: function () {
             var self = this;
-            this.$buttons.on("click", ".o_button_generate_planning", function () {
-                self.do_action({
-                    name: _t("Generate Planning"),
-                    type: "ir.actions.act_window",
-                    res_model: "shift.planning.wizard",
-                    target: "new",
-                    views: [[false, "form"]],
+            return this._super.apply(this, arguments).then(function () {
+                self.$buttons
+                    .find(".o_list_button_add")
+                    .after(
+                        '<button type="button" class="btn btn-secondary o_button_generate_planning">' +
+                            _t("Generate Planning") +
+                            "</button>"
+                    );
+                self.$buttons.on("click", ".o_button_generate_planning", function () {
+                    self.do_action({
+                        name: _t("Generate Planning"),
+                        type: "ir.actions.act_window",
+                        res_model: "shift.planning.wizard",
+                        target: "new",
+                        views: [[false, "form"]],
+                    });
                 });
             });
-        }
-    }
-
-    var ShiftPlanningtListController = ListController.extend({
-        willStart: function () {
-            var self = this;
-            var ready = this.getSession()
-                .user_has_group("hr.group_hr_user")
-                .then(function (is_hr_officer) {
-                    if (is_hr_officer) {
-                        self.buttons_template = "ShiftPlanningtListView.buttons";
-                    }
-                });
-            return Promise.all([this._super.apply(this, arguments), ready]);
-        },
-        renderButtons: function () {
-            this._super.apply(this, arguments);
-            renderGeneratePlanningButton.apply(this, arguments);
         },
     });
 
@@ -48,20 +39,27 @@ odoo.define("hr_shift.planning_generation", function (require) {
     });
 
     var ShiftPlanningtKanbanController = KanbanController.extend({
-        willStart: function () {
+        start: function () {
             var self = this;
-            var ready = this.getSession()
-                .user_has_group("hr.group_hr_user")
-                .then(function (is_hr_officer) {
-                    if (is_hr_officer) {
-                        self.buttons_template = "ShiftPlanningtKanbanView.buttons";
-                    }
+            return this._super.apply(this, arguments).then(function () {
+                self.$buttons
+                    .find("button")
+                    .first()
+                    .after(
+                        '<button type="button" class="btn btn-secondary o_button_generate_planning">' +
+                            _t("Generate Planning") +
+                            "</button>"
+                    );
+                self.$buttons.on("click", ".o_button_generate_planning", function () {
+                    self.do_action({
+                        name: _t("Generate Planning"),
+                        type: "ir.actions.act_window",
+                        res_model: "shift.planning.wizard",
+                        target: "new",
+                        views: [[false, "form"]],
+                    });
                 });
-            return Promise.all([this._super.apply(this, arguments), ready]);
-        },
-        renderButtons: function () {
-            this._super.apply(this, arguments);
-            renderGeneratePlanningButton.apply(this, arguments);
+            });
         },
     });
 

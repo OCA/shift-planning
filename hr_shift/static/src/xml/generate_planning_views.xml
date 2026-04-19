@@ -6,13 +6,13 @@
         </button>
     </t>
 
-    <t t-extend="ListView.buttons" t-name="ShiftPlanningtListView.buttons">
+    <t t-name="ShiftPlanningtListView.buttons" t-extend="ListView.buttons">
         <t t-jquery="button.o_list_button_add" t-operation="after">
             <t t-call="ShiftPlanning.generate_planning_button" />
         </t>
     </t>
 
-    <t t-extend="KanbanView.buttons" t-name="ShiftPlanningtKanbanView.buttons">
+    <t t-name="ShiftPlanningtKanbanView.buttons" t-extend="KanbanView.buttons">
         <t t-jquery="button" t-operation="after">
             <t t-call="ShiftPlanning.generate_planning_button" />
         </t>
