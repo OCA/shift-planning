@@ -19,9 +19,26 @@ msgstr ""
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid "%(day)s shifts of %(planning)s"
 msgstr "%(day)s turni di %(planning)s"
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
+msgid ""
+"<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" "
+"title=\"Planning\"/>"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_form
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_search
+msgid "Archived"
+msgstr ""
 
 #. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__assigned
@@ -169,6 +186,11 @@ msgid "Duration (Hours)"
 msgstr "Durata (ore)"
 
 #. module: hr_shift
+#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban_quick_create
+msgid "Employe"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__employee_id
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_line_search
@@ -205,7 +227,6 @@ msgstr "Per turni non disponibili che non si vuole elencare come assegnati"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__4
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__4
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__4
-#, python-format
 msgid "Friday"
 msgstr "Venerdì"
 
@@ -227,9 +248,7 @@ msgstr "Genera"
 #. module: hr_shift
 #. odoo-javascript
 #: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
-#: code:addons/hr_shift/static/src/js/generate_planning.esm.js:0
 #: code:addons/hr_shift/static/src/xml/generate_planning_views.xml:0
-#, python-format
 msgid "Generate Planning"
 msgstr "Genera pianificazione"
 
@@ -356,7 +375,6 @@ msgstr "Dati righe"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__0
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__0
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__0
-#, python-format
 msgid "Monday"
 msgstr "Lunedì"
 
@@ -432,7 +450,6 @@ msgstr "Revisionato"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__5
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__5
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__5
-#, python-format
 msgid "Saturday"
 msgstr "Sabato"
 
@@ -444,8 +461,8 @@ msgstr "Imposta come revisionato"
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
 msgid ""
-"Set default company's default working start and end day to be used in shifts"
-" span"
+"Set default company's default working start and end day to be used in shifts "
+"span"
 msgstr ""
 "Imposta il giorno di inizio e fine lavoro predefinito dell'azienda da usare "
 "nella durata dei turni"
@@ -519,7 +536,6 @@ msgstr "Durata turno"
 #: model:ir.ui.menu,name:hr_shift.shift_template_menu
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
-#: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban
 msgid "Shifts"
 msgstr "Turni"
 
@@ -559,7 +575,6 @@ msgstr "Stato"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__6
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__6
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__6
-#, python-format
 msgid "Sunday"
 msgstr "Domenica"
 
@@ -573,7 +588,6 @@ msgstr "Modello"
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid "This employee is on leave so can't be assigned to this shift"
 msgstr ""
 "Questo dipendente è assente quindi non può essere assegnato a questo turno"
@@ -590,7 +604,6 @@ msgstr ""
 #. module: hr_shift
 #. odoo-python
 #: code:addons/hr_shift/models/shift_planning.py:0
-#, python-format
 msgid ""
 "This is a public holiday and the employee isn't available for this shift"
 msgstr ""
@@ -611,7 +624,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__3
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__3
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__3
-#, python-format
 msgid "Thursday"
 msgstr "Giovedì"
 
@@ -628,7 +640,6 @@ msgstr "Fuso orario"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__1
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__1
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__1
-#, python-format
 msgid "Tuesday"
 msgstr "Martedì"
 
@@ -655,7 +666,6 @@ msgstr "Non disponibile"
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_template__day_of_week_start__2
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_end_day__2
 #: model:ir.model.fields.selection,name:hr_shift.selection__res_company__shift_start_day__2
-#, python-format
 msgid "Wednesday"
 msgstr "Mercoledì"
 
