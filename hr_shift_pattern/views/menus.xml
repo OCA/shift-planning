@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- New top-level Shifts menu (user-facing entry point) -->
+    <menuitem
+        id="shifts_menu"
+        name="Shifts"
+        parent="hr_shift.shift_planning_root"
+        sequence="80"
+    />
+    <menuitem
+        id="hr_shift.my_shifts_menu"
+        name="My shifts"
+        parent="hr_shift_pattern.shifts_menu"
+    />
+    <menuitem
+        id="all_shifts_menu"
+        name="All Shifts"
+        parent="hr_shift_pattern.shifts_menu"
+        action="shift_planning_all_lines_action"
+        sequence="30"
+        groups="hr_shift.group_shift_manager"
+    />
+    <menuitem
+        id="shift_config_menu"
+        name="Configuration"
+        parent="hr_shift.shift_planning_root"
+        sequence="90"
+        groups="hr_shift.group_shift_manager"
+    />
+    <menuitem
+        id="hr_shift.shift_template_menu"
+        name="Shifts"
+        parent="hr_shift_pattern.shift_config_menu"
+    />
+    <!-- Our week templates and cycles go directly under the reparented hr_shift root -->
+    <menuitem
+        id="shift_pattern_week_menu"
+        name="Week templates"
+        parent="hr_shift_pattern.shift_config_menu"
+        action="shift_pattern_week_action"
+        sequence="40"
+    />
+    <menuitem
+        id="shift_pattern_menu"
+        name="Cycles"
+        parent="hr_shift_pattern.shift_config_menu"
+        action="shift_pattern_action"
+        sequence="50"
+    />
+</odoo>
