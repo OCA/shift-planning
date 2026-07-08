@@ -7,8 +7,6 @@ import pytz
 from odoo import api, models
 from odoo.tools import groupby
 
-from odoo.addons.resource.models.utils import string_to_datetime
-
 
 class ResourceCalendar(models.Model):
     _inherit = "resource.calendar"
@@ -19,6 +17,9 @@ class ResourceCalendar(models.Model):
             start_dt, start_dt.min.time(), tzinfo=tz or pytz.UTC
         )
         max_time = datetime.combine(end_dt, end_dt.max.time(), tzinfo=tz or pytz.UTC)
+        # Odoo 19 requires naive (UTC) datetimes in search domains
+        min_time = min_time.astimezone(pytz.UTC).replace(tzinfo=None)
+        max_time = max_time.astimezone(pytz.UTC).replace(tzinfo=None)
         shifts = self.env["hr.shift.planning.line"].search(
             [
                 ("resource_id", "in", resources.ids),
@@ -58,8 +59,10 @@ class ResourceCalendar(models.Model):
                             or shift.end_time.date() == end.date()
                         )
                     ]
-                    start_time = string_to_datetime(shift.start_time).astimezone(tz)
-                    end_time = string_to_datetime(shift.end_time).astimezone(tz)
+                    # string_to_datetime was removed from resource.models.utils
+                    # in Odoo 19: localize the naive UTC datetimes directly.
+                    start_time = pytz.utc.localize(shift.start_time).astimezone(tz)
+                    end_time = pytz.utc.localize(shift.end_time).astimezone(tz)
                     intervals_to_add.append((start_time, end_time, shift))
                 res[resource.id]._items = [
                     x for x in resource_intervals if x not in intervals_to_remove

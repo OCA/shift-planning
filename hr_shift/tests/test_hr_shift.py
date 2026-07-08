@@ -70,7 +70,7 @@ class TestHrShift(TestHrShiftBase):
         self.assertFalse(shift_a.template_id)
         self.assertFalse(shift_a_line_0.template_id)
         self.assertFalse(shift_a_line_1.template_id)
-        template_morning = self.env.ref("hr_shift.template_morning")
+        template_morning = self.template_morning
         shift_a.write({"template_id": template_morning.id})
         self.assertEqual(shift_a.template_id, template_morning)
         self.assertFalse(shift_a_line_0.template_id)

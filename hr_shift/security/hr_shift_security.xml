@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="module_hr_shift" model="ir.module.category">
+    <record model="res.groups.privilege" id="res_groups_privilege_shift">
         <field name="name">Shifts</field>
         <field name="sequence">17</field>
+        <field name="category_id" ref="base.module_category_human_resources" />
     </record>
     <!-- Access Groups -->
     <record id="group_shift_manager" model="res.groups">
         <field name="name">Shift Manager</field>
-        <field name="category_id" ref="module_hr_shift" />
+        <field name="privilege_id" ref="res_groups_privilege_shift" />
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
         <field
-            name="users"
+            name="user_ids"
             eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
         />
     </record>

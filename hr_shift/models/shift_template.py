@@ -5,20 +5,18 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
-from odoo.tools import LazyTranslate
 
 from odoo.addons.base.models.res_partner import _tz_get
 
-_lt = LazyTranslate(__name__, default_lang="en_US")
-
+# Selection labels are exported for translation by the ORM itself
 WEEK_DAYS_SELECTION = [
-    ("0", str(_lt("Monday"))),
-    ("1", str(_lt("Tuesday"))),
-    ("2", str(_lt("Wednesday"))),
-    ("3", str(_lt("Thursday"))),
-    ("4", str(_lt("Friday"))),
-    ("5", str(_lt("Saturday"))),
-    ("6", str(_lt("Sunday"))),
+    ("0", "Monday"),
+    ("1", "Tuesday"),
+    ("2", "Wednesday"),
+    ("3", "Thursday"),
+    ("4", "Friday"),
+    ("5", "Saturday"),
+    ("6", "Sunday"),
 ]
 
 
@@ -36,7 +34,7 @@ class ShiftTemplate(models.Model):
         _tz_get,
         string="Timezone",
         required=True,
-        default=lambda self: self._context.get("tz") or self.env.user.tz or "UTC",
+        default=lambda self: self.env.context.get("tz") or self.env.user.tz or "UTC",
         help="This field is used in order to define in which timezone the employees "
         "will work.",
     )

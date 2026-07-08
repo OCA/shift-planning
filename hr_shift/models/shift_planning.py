@@ -5,7 +5,7 @@ from datetime import datetime
 import pytz
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 from .shift_template import WEEK_DAYS_SELECTION
@@ -43,13 +43,10 @@ class ShiftPlanning(models.Model):
     # Decidir cómo mostrar # nº asignados por turno, nº sin asignar
     # summary = fields.Html()
 
-    _sql_constraints = [
-        (
-            "unique_year_week",
-            "unique(year,week_number)",
-            "You can't plan the same week twice!",
-        )
-    ]
+    _unique_year_week = models.Constraint(
+        "unique(year, week_number)",
+        "You can't plan the same week twice!",
+    )
 
     @api.model
     def _get_last_plan(self):
@@ -76,7 +73,7 @@ class ShiftPlanning(models.Model):
     def _compute_display_name(self):
         for planning in self:
             planning.display_name = (
-                f"{planning.year} {_('Week')} {planning.week_number} "
+                f"{planning.year} {self.env._('Week')} {planning.week_number} "
                 f"({planning.start_date} - {planning.end_date})"
             )
 
@@ -167,13 +164,13 @@ class ShiftPlanning(models.Model):
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "hr_shift.shift_planning_shift_action"
         )
-        action["display_name"] = f"{_('Shifts for')} {self.display_name}"
+        action["display_name"] = f"{self.env._('Shifts for')} {self.display_name}"
         return action
 
     def action_view_issued_shifts(self):
         action = self.action_view_shifts()
         action["domain"] = [("id", "in", self.issued_shift_ids.ids)]
-        action["display_name"] = f"{_('Issues for')} {self.display_name}"
+        action["display_name"] = f"{self.env._('Issues for')} {self.display_name}"
         return action
 
     def action_view_day_shifts(self):
@@ -189,7 +186,7 @@ class ShiftPlanning(models.Model):
             "multi_employee_mode": True,
             "group_by": "template_id",
         }
-        action["display_name"] = _(
+        action["display_name"] = self.env._(
             "%(day)s shifts of %(planning)s",
             day=dict(WEEK_DAYS_SELECTION).get(weekday_number),
             planning=self.display_name,
@@ -226,17 +223,15 @@ class ShiftPlanningShift(models.Model):
         readonly=False,
     )
 
-    _sql_constraints = [
-        (
-            "unique_planning_employee",
-            "unique(planning_id,employee_id)",
-            "You can't assign an employee twice to the same plan!",
-        )
-    ]
+    _unique_planning_employee = models.Constraint(
+        "unique(planning_id, employee_id)",
+        "You can't assign an employee twice to the same plan!",
+    )
 
     @api.model
     def _group_expand_template_id(self, templates, domain):
-        return self.env["hr.shift.template"].search([])
+        # Shift templates are a small, bounded configuration table
+        return self.env["hr.shift.template"].search([])  # pylint: disable=no-search-all
 
     @api.depends("line_ids")
     def _compute_lines_data(self):
@@ -314,7 +309,7 @@ class ShiftPlanningShift(models.Model):
             action["views"] = [(False, "form")]
             action["res_id"] = self.env.context.get("shift_line_id")
             action["target"] = "new"
-        action["display_name"] = f"{_('Details for')} {self.employee_id.name}"
+        action["display_name"] = f"{self.env._('Details for')} {self.employee_id.name}"
         return action
 
 
@@ -369,14 +364,16 @@ class ShiftPlanningLine(models.Model):
         for record in self.filtered("template_id"):
             if record.state == "holiday":
                 raise UserError(
-                    _(
+                    self.env._(
                         "This is a public holiday and the employee isn't available "
                         "for this shift"
                     )
                 )
             elif record.state == "on_leave":
                 raise UserError(
-                    _("This employee is on leave so can't be assigned to this shift")
+                    self.env._(
+                        "This employee is on leave so can't be assigned to this shift"
+                    )
                 )
 
     @api.depends("template_id")
@@ -401,18 +398,21 @@ class ShiftPlanningLine(models.Model):
 
     @api.model
     def _group_expand_template_id(self, templates, domain):
-        return self.env["hr.shift.template"].search([])
+        # Shift templates are a small, bounded configuration table
+        return self.env["hr.shift.template"].search([])  # pylint: disable=no-search-all
 
     @api.depends("day_number", "template_id", "state")
     def _compute_display_name(self):
         for line in self:
             line.display_name = (
-                f"{_(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
+                f"{self.env._(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
                 f"""
-                {line.template_id.name
-                or dict(
-                    self._fields['state']._description_selection(self.env)
-                )[line.state]}"""
+                {
+                    line.template_id.name
+                    or dict(self._fields["state"]._description_selection(self.env))[
+                        line.state
+                    ]
+                }"""
             )
 
     @api.depends("planning_id", "day_number", "template_id")
@@ -476,11 +476,11 @@ class ShiftPlanningLine(models.Model):
         if not (self.start_time and self.end_time and self.employee_id):
             return False
         local_tz = pytz.timezone(self.template_id.tz or self.env.user.tz)
-        start_time = fields.datetime.combine(
+        start_time = datetime.combine(
             pytz.utc.localize(self.start_time).astimezone(local_tz),
             self.start_time.min.time(),
         )
-        end_time = fields.datetime.combine(
+        end_time = datetime.combine(
             pytz.utc.localize(self.end_time).astimezone(local_tz),
             self.end_time.max.time(),
         )

@@ -338,7 +338,7 @@
                     string="My shifts"
                     domain="[('employee_id.user_id', '=', uid)]"
                 />
-                <group string="Group By">
+                <group name="group_by">
                     <filter
                         name="group_template"
                         string="Template"
