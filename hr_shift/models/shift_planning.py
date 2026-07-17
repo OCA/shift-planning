@@ -340,8 +340,12 @@ class ShiftPlanningLine(models.Model):
     employee_id = fields.Many2one(related="shift_id.employee_id", store=True)
     resource_id = fields.Many2one(related="employee_id.resource_id", store=True)
     day_number = fields.Selection(string="Day", selection=WEEK_DAYS_SELECTION)
-    start_time = fields.Datetime(compute="_compute_shift_time", store=True)
-    end_time = fields.Datetime(compute="_compute_shift_time", store=True)
+    start_time = fields.Datetime(
+        compute="_compute_shift_time", store=True, readonly=False
+    )
+    end_time = fields.Datetime(
+        compute="_compute_shift_time", store=True, readonly=False
+    )
     start_date = fields.Date(string="Date", compute="_compute_start_date")
     duration_hours = fields.Float(
         string="Duration (Hours)", compute="_compute_duration", store=True
