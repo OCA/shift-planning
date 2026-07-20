@@ -151,7 +151,8 @@ class ShiftPlanning(models.Model):
 
     def regenerate_shifts(self):
         self.shift_ids.unlink()
-        self.generate_shifts()
+        for planning in self:
+            planning.generate_shifts()
 
     def copy_to_planning(self):
         action = self.env["ir.actions.act_window"]._for_xml_id(

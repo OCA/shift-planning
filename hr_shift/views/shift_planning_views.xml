@@ -522,6 +522,15 @@
         <field name="res_model">hr.shift.planning</field>
         <field name="view_mode">kanban,list,calendar,form</field>
     </record>
+    <record id="action_regenerate_shifts" model="ir.actions.server">
+        <field name="name">Regenerate shifts</field>
+        <field name="model_id" ref="model_hr_shift_planning" />
+        <field name="binding_model_id" ref="model_hr_shift_planning" />
+        <field name="binding_view_types">list</field>
+        <field name="groups_id" eval="[(4, ref('group_shift_manager'))]" />
+        <field name="state">code</field>
+        <field name="code">records.regenerate_shifts()</field>
+    </record>
     <menuitem
         id="shift_planning_root"
         name="Shifts"
