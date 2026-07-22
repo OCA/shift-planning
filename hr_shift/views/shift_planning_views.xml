@@ -447,7 +447,7 @@
                 date_start="start_time"
                 date_stop="end_time"
                 mode="month"
-                scales="week,month,year"
+                scales="day,week,month,year"
                 color="color"
                 event_open_popup="1"
                 create="0"
