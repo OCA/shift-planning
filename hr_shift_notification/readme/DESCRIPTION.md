@@ -1,0 +1,1 @@
+Notify employees when their shift planning changes. A button on the planning form opens a wizard that lists the shifts to notify; each selected employee receives the message on their chatter. Employees can opt out from these notifications.
