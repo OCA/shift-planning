@@ -22,7 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[hr_shift](hr_shift/) | 18.0.1.1.0 |  | Define shifts for employees
+[hr_shift](hr_shift/) | 18.0.1.1.1 |  | Define shifts for employees
 
 [//]: # (end addons)
 
