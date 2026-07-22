@@ -5,6 +5,7 @@ from datetime import datetime
 import pytz
 
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import Form
 from odoo.tools import mute_logger
 
@@ -155,3 +156,36 @@ class TestHrShift(TestHrShiftBase):
         shift_b_line_1 = shift_b.line_ids.filtered(lambda x: x.day_number == "1")
         self.assertEqual(shift_b_line_1.state, "assigned")
         self.assertEqual(shift_b_line_1.template_id, self.template_afternoon)
+
+    def test_hr_shift_planning_line_overlap_is_refused(self):
+        self.planning.generate_shifts()
+        shift = self.planning.shift_ids.filtered(
+            lambda s: s.employee_id == self.employee_a
+        )
+        line = shift.line_ids.filtered(lambda x: x.day_number == "0")
+        line.template_id = self.template_morning
+        with self.assertRaises(UserError):
+            self.env["hr.shift.planning.line"].create(
+                {
+                    "shift_id": shift.id,
+                    "day_number": "0",
+                    "template_id": self.template_morning.id,
+                }
+            )
+
+    def test_hr_shift_planning_line_touch_to_touch_is_allowed(self):
+        self.planning.generate_shifts()
+        shift = self.planning.shift_ids.filtered(
+            lambda s: s.employee_id == self.employee_a
+        )
+        line = shift.line_ids.filtered(lambda x: x.day_number == "0")
+        line.template_id = self.template_morning
+        extra = self.env["hr.shift.planning.line"].create(
+            {
+                "shift_id": shift.id,
+                "day_number": "0",
+                "template_id": self.template_afternoon.id,
+            }
+        )
+        self.assertEqual(extra.state, "assigned")
+        self.assertEqual(line.end_time, extra.start_time)
