@@ -403,16 +403,18 @@ class ShiftPlanningLine(models.Model):
     def _group_expand_template_id(self, templates, domain):
         return self.env["hr.shift.template"].search([])
 
-    @api.depends("day_number", "template_id", "state")
+    @api.depends("employee_id", "template_id", "state")
     def _compute_display_name(self):
         for line in self:
             line.display_name = (
-                f"{_(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
+                f"{line.employee_id.name or ''} - "
                 f"""
-                {line.template_id.name
-                or dict(
-                    self._fields['state']._description_selection(self.env)
-                )[line.state]}"""
+                {
+                    line.template_id.name
+                    or dict(self._fields["state"]._description_selection(self.env))[
+                        line.state
+                    ]
+                }"""
             )
 
     @api.depends("planning_id", "day_number", "template_id")
