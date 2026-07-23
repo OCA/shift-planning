@@ -410,6 +410,7 @@ msgid "Planning"
 msgstr ""
 
 #. module: hr_shift
+#: model:ir.actions.server,name:hr_shift.action_regenerate_shifts
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_form
 msgid "Regenerate shifts"
 msgstr ""
