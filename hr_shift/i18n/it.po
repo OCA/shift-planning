@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-03 08:43+0000\n"
+"PO-Revision-Date: 2026-08-11 12:48+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: hr_shift
 #. odoo-python
@@ -28,17 +28,19 @@ msgid ""
 "<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" "
 "title=\"Planning\"/>"
 msgstr ""
+"<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" "
+"title=\"Pianificazione\"/>"
 
 #. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__active
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_form
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_template_search
 msgid "Archived"
-msgstr ""
+msgstr "In archivio"
 
 #. module: hr_shift
 #: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning_line__state__assigned
@@ -188,7 +190,7 @@ msgstr "Durata (ore)"
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_shift_kanban_quick_create
 msgid "Employe"
-msgstr ""
+msgstr "Dipendente"
 
 #. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__employee_id
