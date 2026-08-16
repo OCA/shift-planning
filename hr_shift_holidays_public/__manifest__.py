@@ -9,5 +9,5 @@
     "website": "https://github.com/OCA/shift-planning",
     "category": "Marketing",
     "depends": ["calendar_public_holiday", "hr_shift"],
-    "data": [],
+    "data": ["views/res_config_settings_views.xml"],
 }

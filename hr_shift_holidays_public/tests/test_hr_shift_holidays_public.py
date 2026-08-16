@@ -1,6 +1,7 @@
 # Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import Command
+from odoo.exceptions import UserError
 
 from odoo.addons.hr_shift.tests.common import TestHrShiftBase
 
@@ -35,3 +36,24 @@ class TestHrShiftHolidaysPublic(TestHrShiftBase):
         self.assertEqual(shift_a_line_0.state, "unassigned")
         shift_a_line_1 = shift_a.line_ids.filtered(lambda x: x.day_number == "1")
         self.assertEqual(shift_a_line_1.state, "holiday")
+
+    def test_template_on_public_holiday_forbidden(self):
+        self.planning.generate_shifts()
+        shift_a = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        line_1 = shift_a.line_ids.filtered(lambda x: x.day_number == "1")
+        self.assertEqual(line_1.state, "holiday")
+        with self.assertRaises(UserError):
+            line_1.template_id = self.env.ref("hr_shift.template_morning")
+
+    def test_template_overrides_public_holiday(self):
+        self.company.shift_template_overrides_public_holiday = True
+        self.planning.generate_shifts()
+        shift_a = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        line_1 = shift_a.line_ids.filtered(lambda x: x.day_number == "1")
+        self.assertEqual(line_1.state, "holiday")
+        line_1.template_id = self.env.ref("hr_shift.template_morning")
+        self.assertEqual(line_1.state, "assigned")
