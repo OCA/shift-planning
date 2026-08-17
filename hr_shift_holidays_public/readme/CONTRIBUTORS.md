@@ -1,0 +1,5 @@
+- [Tecnativa](https://tecnativa.com):
+  - David Vidal
+  - Pedro M. Baeza
+- [Tesseratech](https://www.tesseratech.es):
+  - Abraham Anes
