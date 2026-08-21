@@ -380,6 +380,42 @@ class ShiftPlanningLine(models.Model):
                     _("This employee is on leave so can't be assigned to this shift")
                 )
 
+    @api.constrains("start_time", "end_time", "employee_id", "state")
+    def _constrain_line_overlap(self):
+        lines = self.filtered(
+            lambda line: (
+                line.state == "assigned"
+                and line.start_time
+                and line.end_time
+                and line.employee_id
+            )
+        )
+        if not lines:
+            return
+        others = self.search(
+            [
+                ("id", "not in", lines.ids),
+                ("state", "=", "assigned"),
+                ("employee_id", "in", lines.employee_id.ids),
+                ("start_time", "<", max(lines.mapped("end_time"))),
+                ("end_time", ">", min(lines.mapped("start_time"))),
+            ]
+        )
+        for line in lines:
+            if others.filtered_domain(
+                [
+                    ("employee_id", "=", line.employee_id.id),
+                    ("start_time", "<", line.end_time),
+                    ("end_time", ">", line.start_time),
+                ]
+            ):
+                raise UserError(
+                    _(
+                        "%(employee)s already has an overlapping shift on this period.",
+                        employee=line.employee_id.name,
+                    )
+                )
+
     @api.depends("template_id")
     def _compute_state(self):
         for shift in self:
