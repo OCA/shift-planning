@@ -26,20 +26,17 @@ class HrEmployeeBase(models.AbstractModel):
                 [
                     ("employee_id", "=", self.id),
                     ("state", "=", "assigned"),
-                    ("start_time", ">=", min_time),
-                    ("end_time", "<=", max_time),
+                    ("start_time", "<=", max_time),
+                    ("end_time", ">=", min_time),
                 ]
             )
         )
 
     def _compute_current_shift_id(self):
         """Current shift for a given employee if any"""
-        today = fields.Date.today()
         now = fields.Datetime.now()
-        min_time = fields.datetime.combine(today, now.min.time())
-        max_time = fields.datetime.combine(today, now.max.time())
         for employee in self:
-            employee.current_shift_id = employee._shift_of_date(min_time, max_time)
+            employee.current_shift_id = employee._shift_of_date(now, now)
 
     def _get_employee_working_now(self):
         # Get shift info if available
