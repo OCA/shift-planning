@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_shift.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <setting name="shift_working_week" position="after">
+                <setting
+                    company_dependent="1"
+                    name="shift_template_overrides_public_holiday"
+                    help="Shift lines with a template explicitly assigned are considered working shifts even on public holidays"
+                >
+                    <field name="shift_template_overrides_public_holiday" />
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>
