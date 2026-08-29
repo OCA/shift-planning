@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 INVITU (<https://www.invitu.com>) -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo noupdate="1">
+    <record id="hr_shift_ical_config" model="base.ical">
+        <field name="name">My shifts</field>
+        <field name="model_id" ref="hr_shift.model_hr_shift_planning_line" />
+        <field name="domain">[
+            ('employee_id.user_id', '=', user.id),
+            ('state', '=', 'assigned'),
+            ('start_time', '&gt;=', (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')),
+            ('start_time', '&lt;=', (datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d')),
+        ]</field>
+        <field
+            name="expression_uid"
+        >'hr-shift-line-%s@%s' % (record.id, user.login)</field>
+        <field name="expression_dtstart">record.start_time</field>
+        <field name="expression_dtend">record.end_time</field>
+        <field name="expression_summary">record.template_id.name or 'Shift'</field>
+        <field name="auto" eval="True" />
+    </record>
+</odoo>
