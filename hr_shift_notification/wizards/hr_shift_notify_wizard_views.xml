@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 INVITU (<https://www.invitu.com>) -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="hr_shift_planning_notify_wizard_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning.notify.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Notify Employees">
+                <sheet>
+                    <field name="planning_id" invisible="1" />
+                    <field name="shift_ids">
+                        <list create="0">
+                            <field name="employee_id" />
+                            <field name="changed_line_ids" widget="many2many_tags" />
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button
+                        string="Send"
+                        name="action_send"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
