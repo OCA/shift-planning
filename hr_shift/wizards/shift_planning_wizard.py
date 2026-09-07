@@ -61,7 +61,7 @@ class ShiftPlanningWizard(models.TransientModel):
     def generate(self):
         def _shift_details_data(shift_details):
             # Prepare WEEK_DAYS_SELECTION keys
-            data = dict([(str(i), False) for i in range(7)])
+            data = {str(i): False for i in range(7)}
             for detail in shift_details:
                 data[detail.day_number] = detail.template_id
             return data
