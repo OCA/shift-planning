@@ -23,3 +23,8 @@
         width: 95%;
     }
 }
+
+.o_kanban_view.o_kanban_full_width .o_kanban_record {
+    width: 100% !important;
+    margin: 0;
+}

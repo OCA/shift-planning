@@ -3,6 +3,7 @@
 from datetime import datetime
 
 import pytz
+from freezegun import freeze_time
 
 from odoo import fields
 from odoo.tests import Form
@@ -24,9 +25,9 @@ class TestHrShift(TestHrShiftBase):
             }
         )
 
-    def test_hr_shift_planning_name_get(self):
+    def test_hr_shift_planning_display_name(self):
         self.assertEqual(
-            self.planning.name_get()[0][1], "2025 Week 3 (2025-01-13 - 2025-01-19)"
+            self.planning.display_name, "2025 Week 3 (2025-01-13 - 2025-01-19)"
         )
 
     def test_attendance_intervals_batch(self):
@@ -67,6 +68,16 @@ class TestHrShift(TestHrShiftBase):
         self.assertTrue(shift_a_line_0.reviewed)
         shift_a_line_1 = shift_a.line_ids.filtered(lambda x: x.day_number == "1")
         self.assertEqual(shift_a_line_1.state, "unassigned")
+        self.assertFalse(shift_a.template_id)
+        self.assertFalse(shift_a_line_0.template_id)
+        self.assertFalse(shift_a_line_1.template_id)
+        template_morning = self.env.ref("hr_shift.template_morning")
+        shift_a.write({"template_id": template_morning.id})
+        self.assertEqual(shift_a.template_id, template_morning)
+        self.assertFalse(shift_a_line_0.template_id)
+        self.assertFalse(shift_a_line_1.exists())
+        shift_a_line_1 = shift_a.line_ids.filtered(lambda x: x.day_number == "1")
+        self.assertEqual(shift_a_line_1.template_id, template_morning)
 
     @mute_logger("odoo.models.unlink")
     def test_hr_shift_planning_full(self):
@@ -145,3 +156,54 @@ class TestHrShift(TestHrShiftBase):
         shift_b_line_1 = shift_b.line_ids.filtered(lambda x: x.day_number == "1")
         self.assertEqual(shift_b_line_1.state, "assigned")
         self.assertEqual(shift_b_line_1.template_id, self.template_afternoon)
+
+    @freeze_time("2025-01-13 08:00:00")
+    def test_hr_shift_current_shift_id_two_shifts_same_day_morning(self):
+        self.planning.generate_shifts()
+        shift = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        line_morning = shift.line_ids.filtered(lambda x: x.day_number == "0")
+        line_morning.template_id = self.template_morning
+        self.env["hr.shift.planning.line"].create(
+            {
+                "shift_id": shift.id,
+                "day_number": "0",
+                "template_id": self.template_afternoon.id,
+            }
+        )
+        self.assertEqual(self.employee_a.current_shift_id, line_morning)
+
+    @freeze_time("2025-01-13 14:00:00")
+    def test_hr_shift_current_shift_id_two_shifts_same_day_afternoon(self):
+        self.planning.generate_shifts()
+        shift = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        line_morning = shift.line_ids.filtered(lambda x: x.day_number == "0")
+        line_morning.template_id = self.template_morning
+        line_afternoon = self.env["hr.shift.planning.line"].create(
+            {
+                "shift_id": shift.id,
+                "day_number": "0",
+                "template_id": self.template_afternoon.id,
+            }
+        )
+        self.assertEqual(self.employee_a.current_shift_id, line_afternoon)
+
+    @freeze_time("2025-01-13 20:30:00")
+    def test_hr_shift_current_shift_id_two_shifts_same_day_after_both(self):
+        self.planning.generate_shifts()
+        shift = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        line_morning = shift.line_ids.filtered(lambda x: x.day_number == "0")
+        line_morning.template_id = self.template_morning
+        self.env["hr.shift.planning.line"].create(
+            {
+                "shift_id": shift.id,
+                "day_number": "0",
+                "template_id": self.template_afternoon.id,
+            }
+        )
+        self.assertFalse(self.employee_a.current_shift_id)

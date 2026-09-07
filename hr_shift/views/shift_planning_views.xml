@@ -24,14 +24,14 @@
                         name="copy_to_planning"
                         class="btn btn-secondary"
                         string="Copy to new planning"
-                        attrs="{'invisible': ['|', ('state', '=', 'new'), ('shift_ids', '=',  [])]}"
+                        attrs="{'invisible': ['|', ('state', '=', 'new'), ('shift_ids', '=', False)]}"
                     />
                     <button
                         type="object"
                         name="regenerate_shifts"
                         class="btn btn-secondary"
                         string="Regenerate shifts"
-                        attrs="{'invisible': ['|', ('state', '!=', 'assignment'), ('shift_ids', '=',  [])]}"
+                        attrs="{'invisible': ['|', ('state', '!=', 'assignment'), ('shift_ids', '=', False)]}"
                         confirm="This will remove the current shifts assignations for this planning"
                     />
                 </header>
@@ -41,7 +41,7 @@
                             class="oe_stat_button"
                             name="action_view_shifts"
                             type="object"
-                            attrs="{'invisible':[('state', '=', 'new')]}"
+                            attrs="{'invisible': [('state', '=', 'new')]}"
                             icon="fa-link"
                         >
                             <field
@@ -54,7 +54,7 @@
                             class="oe_stat_button"
                             name="action_view_issued_shifts"
                             type="object"
-                            attrs="{'invisible':[('state', '=', 'new')]}"
+                            attrs="{'invisible': ['|', ('state', '=', 'new'), ('issued_shifts_count', '=', 0)]}"
                             icon="fa-unlink"
                         >
                             <field
@@ -90,94 +90,86 @@
     <record id="shift_planning_kanban" model="ir.ui.view">
         <field name="model">hr.shift.planning</field>
         <field name="arch" type="xml">
-            <kanban class="p-0" js_class="shift_planning_kanban">
+            <kanban class="o_kanban_full_width" js_class="shift_planning_kanban">
                 <field name="display_name" />
                 <field name="days_data" />
                 <field name="issued_shifts_count" />
                 <field name="shifts_count" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click w-100 m-0 p-4">
-                            <div class="row">
-                                <div class="col-4">
+                        <div
+                            class="oe_kanban_global_click d-flex align-items-center w-100 p-3"
+                        >
+                            <div class="d-flex align-items-center gap-3 w-100">
+                                <div class="d-flex flex-column gap-2">
                                     <button
                                         name="action_view_shifts"
                                         type="object"
-                                        class="btn btn-primary btn-lg"
+                                        class="btn btn-primary"
                                         t-if="record.shifts_count.raw_value"
                                     ><span
-                                            class="badge badge-light text-primary"
+                                            class="badge text-bg-light text-primary me-1"
                                             t-esc="record.shifts_count.value"
                                         /> Shifts</button>
                                     <button
                                         name="action_view_issued_shifts"
                                         type="object"
-                                        class="btn btn-danger btn-lg"
+                                        class="btn btn-danger"
                                         t-if="record.issued_shifts_count.raw_value"
                                     ><span
-                                            class="badge badge-light text-danger"
+                                            class="badge text-bg-light text-danger me-1"
                                             t-esc="record.issued_shifts_count.value"
                                         /> Issues</button>
                                 </div>
-                                <div class="col-4">
-                                    <div t-if="record.days_data.raw_value">
-                                        <div
-                                            class="btn-group"
-                                            role="group"
-                                            aria-label="Shifts"
+                                <div class="flex-grow-1 d-flex justify-content-center">
+                                    <div
+                                        t-if="record.days_data.raw_value"
+                                        class="btn-group"
+                                        role="group"
+                                        aria-label="Shifts"
+                                    >
+                                        <t
+                                            t-foreach="record.days_data.raw_value"
+                                            t-as="day"
+                                            t-key="day"
                                         >
-                                            <t
-                                                t-foreach="record.days_data.raw_value"
-                                                t-as="day"
-                                            >
-                                                <t t-if="day.state === 'assigned'">
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'success'"
-                                                    />
-                                                </t>
-                                                <t t-elif="day.state === 'unavailable'">
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'danger'"
-                                                    />
-                                                </t>
-                                                <t t-elif="day.state === 'holiday'">
-                                                    <t t-set="color" t-value="'dark'" />
-                                                </t>
-                                                <t t-elif="day.state === 'on_leave'">
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'danger'"
-                                                    />
-                                                </t>
-                                                <t t-else="">
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'light'"
-                                                    />
-                                                </t>
-                                                <button
-                                                    type="object"
-                                                    name="action_view_day_shifts"
-                                                    t-attf-class="btn border btn btn-#{color} text-center font-weight-bold"
-                                                    t-attf-data-context="{'weekday_number': #{day_value.weekday_number}}"
-                                                >
-                                                    <small
-                                                        t-esc="day_value.weekday.slice(0, 3)"
-                                                        class="text-uppercase"
-                                                    /><br />
-                                                    <small t-esc="day_value.day" />
-                                                </button>
+                                            <t t-if="day.state === 'assigned'">
+                                                <t t-set="color" t-value="'success'" />
                                             </t>
-                                        </div>
+                                            <t t-elif="day.state === 'unavailable'">
+                                                <t t-set="color" t-value="'danger'" />
+                                            </t>
+                                            <t t-elif="day.state === 'holiday'">
+                                                <t t-set="color" t-value="'dark'" />
+                                            </t>
+                                            <t t-elif="day.state === 'on_leave'">
+                                                <t t-set="color" t-value="'warning'" />
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="color" t-value="'light'" />
+                                            </t>
+                                            <button
+                                                type="object"
+                                                name="action_view_day_shifts"
+                                                t-attf-class="btn border btn-#{color} text-center fw-bold"
+                                                t-attf-context="{'weekday_number': #{day_value.weekday_number} }"
+                                            >
+                                                <small
+                                                    t-esc="day_value.weekday.slice(0, 3)"
+                                                    class="text-uppercase"
+                                                />
+                                                <br />
+                                                <small t-esc="day_value.day" />
+                                            </button>
+                                        </t>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="text-end">
                                     <h3>
                                         <i
-                                            class="fa fa-calendar text-primary"
+                                            class="fa fa-calendar text-primary me-2"
                                             role="img"
+                                            title="Planning"
                                         />
                                         <t t-esc="record.display_name.value" />
                                     </h3>
@@ -235,10 +227,28 @@
             </tree>
         </field>
     </record>
+    <record id="shift_planning_shift_kanban_quick_create" model="ir.ui.view">
+        <field name="name">hr.shift.planning.shift.quick_create</field>
+        <field name="model">hr.shift.planning.shift</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <div class="d-flex align-items-center">
+                        <field name="employee_id" placeholder="Employe" />
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
     <record id="shift_planning_shift_kanban" model="ir.ui.view">
         <field name="model">hr.shift.planning.shift</field>
         <field name="arch" type="xml">
-            <kanban sample="1">
+            <kanban
+                sample="1"
+                on_create="quick_create"
+                quick_create_view="hr_shift.shift_planning_shift_kanban_quick_create"
+            >
                 <field name="id" />
                 <field name="template_id" />
                 <field name="employee_id" />
@@ -249,109 +259,80 @@
                 <progressbar field="template_id" colors='{}' />
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="container">
-                            <div class="o_top_button_kanban dropdown">
-                                <a
+                    <div class="d-flex flex-column">
+                        <aside
+                                class="d-flex justify-content-between align-items-baseline"
+                            >
+                            <div class="d-flex align-items-center">
+                                <field
+                                        name="employee_id"
+                                        widget="image"
+                                        options="{'preview_image': 'image_128', 'size': [24, 24]}"
+                                        class="rounded-circle me-2"
+                                    />
+                                <strong t-esc="record.employee_id.value" />
+                            </div>
+                            <a
                                     class="btn"
                                     type="object"
                                     name="action_toggle_reviewed"
                                     role="button"
                                     title="Set as reviewed"
                                 >
-                                    <span
+                                <span
                                         t-if="record.reviewed.raw_value"
                                         class="fa fa-check-square-o text-success"
                                     />
-                                    <span t-else="" class="fa fa-square-o" />
-                                </a>
-                            </div>
-                            <div class="row no-gutters o_kanban_shift_employee">
-                                <div class="col-1">
-                                    <img
-                                        t-att-src="kanban_image('hr.employee', 'image_128', record.employee_id.raw_value)"
-                                        t-att-title="record.employee_id.value"
-                                        t-att-alt="record.employee_id.value"
-                                        class="oe_kanban_avatar o_image_24_cover float-left mr4"
-                                    />
-                                </div>
-                                <div class="col-11">
-                                    <strong class="h4 ml-2">
-                                        <t t-esc="record.employee_id.value" />
-                                    </strong>
-                                </div>
-                            </div>
-                            <div class="o_kanban_record_bottom mt-2">
-                                <div class="oe_kanban_bottom_left">
-                                    <div t-if="record.line_ids.raw_value">
-                                        <div
-                                            class="btn-group"
-                                            role="group"
-                                            aria-label="Shifts"
+                                <span t-else="" class="fa fa-square-o" />
+                            </a>
+                        </aside>
+                        <main t-if="record.line_ids.raw_value">
+                            <div
+                                    class="d-flex justify-content-between align-items-center gap-2"
+                                >
+                                <div class="d-flex">
+                                    <t
+                                            t-foreach="record.lines_data.raw_value"
+                                            t-as="line"
+                                            t-key="line"
                                         >
+                                        <t t-if="line_value.state === 'assigned'">
                                             <t
-                                                t-foreach="record.lines_data.raw_value"
-                                                t-as="line"
-                                            >
-                                                <t
-                                                    t-if="line_value.state === 'assigned'"
-                                                >
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'o_button_color_' + line_value.color"
-                                                    />
-                                                </t>
-                                                <t
-                                                    t-elif="line_value.state === 'unavailable'"
-                                                >
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'btn-danger'"
-                                                    />
-                                                </t>
-                                                <t
-                                                    t-elif="line_value.state === 'holiday'"
-                                                >
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'btn-dark'"
-                                                    />
-                                                </t>
-                                                <t
-                                                    t-elif="line_value.state === 'on_leave'"
-                                                >
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'btn-danger'"
-                                                    />
-                                                </t>
-                                                <t t-else="">
-                                                    <t
-                                                        t-set="color"
-                                                        t-value="'btn-light'"
-                                                    />
-                                                </t>
-                                                <button
-                                                    t-attf-class="btn border btn-sm #{color}"
-                                                    type="object"
-                                                    name="action_view_shift_details"
-                                                    t-attf-data-context="{'shift_line_id': #{line}}"
-                                                ><t
-                                                        t-esc="line_value.day.slice(0, 2)"
-                                                    /></button>
-                                            </t>
-                                        </div>
-                                    </div>
-                                    <div class="oe_kanban_bottom_right">
+                                                    t-set="color"
+                                                    t-value="'o_button_color_' + line_value.color"
+                                                />
+                                        </t>
+                                        <t t-elif="line_value.state === 'unavailable'">
+                                            <t t-set="color" t-value="'btn-danger'" />
+                                        </t>
+                                        <t t-elif="line_value.state === 'holiday'">
+                                            <t t-set="color" t-value="'btn-dark'" />
+                                        </t>
+                                        <t t-elif="line_value.state === 'on_leave'">
+                                            <t t-set="color" t-value="'btn-danger'" />
+                                        </t>
+                                        <t t-else="">
+                                            <t t-set="color" t-value="'btn-light'" />
+                                        </t>
                                         <button
-                                            t-if="record.line_ids.raw_value"
-                                            type="object"
-                                            class="btn btn-primary btn-sm"
-                                            name="action_view_shift_details"
-                                        >Shift details</button>
-                                    </div>
+                                                t-attf-class="btn border btn-sm #{color}"
+                                                type="object"
+                                                name="action_view_shift_details"
+                                                t-attf-context="{'shift_line_id': #{line} }"
+                                            >
+                                            <t t-esc="line_value.day.slice(0, 2)" />
+                                        </button>
+                                    </t>
                                 </div>
+                                <button
+                                        t-if="record.line_ids.raw_value"
+                                        type="object"
+                                        class="btn btn-primary btn-sm"
+                                        name="action_view_shift_details"
+                                    >Shift details</button>
                             </div>
-                        </div>
+                        </main>
+                    </div>
                     </t>
                 </templates>
             </kanban>
@@ -413,63 +394,60 @@
                 <progressbar field="template_id" colors='{}' />
                 <templates>
                     <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_global_click container #{record.state.raw_value === 'holiday' ? 'bg-dark' : record.state.raw_value === 'on_leave' ? 'bg-danger' : ''}"
+                    <div
+                            t-attf-class="oe_kanban_global_click d-flex justify-content-between #{record.state.raw_value === 'holiday' ? 'bg-dark' : record.state.raw_value === 'on_leave' ? 'bg-danger' : ''}"
                         >
-                            <div class="o_kanban_card_header o_kanban_record_top">
-                                <div
-                                    class="o_kanban_record_headings o_kanban_card_header_title"
-                                >
-                                    <div t-if="context.multi_employee_mode">
-                                        <strong><field name="employee_id" /></strong>
-                                    </div>
-                                    <div t-else="">
-                                        <strong class="text-uppercase"><field
-                                                name="day_number"
-                                            /></strong>
-                                        <field name="start_date" />
-                                    </div>
-                                    <span
+                        <aside
+                                class="d-flex align-items-baseline justify-content-between"
+                            >
+                            <div class="d-flex gap-2">
+                                <div t-if="context.multi_employee_mode">
+                                    <strong>
+                                        <field name="employee_id" />
+                                    </strong>
+                                </div>
+                                <div t-else="" class="d-flex gap-2">
+                                    <strong class="text-uppercase">
+                                        <field name="day_number" />
+                                    </strong>
+                                    <field name="start_date" />
+                                </div>
+                                <span
                                         t-if="['holiday', 'on_leave'].includes(record.state.raw_value)"
-                                        class="badge badge-secondary"
+                                        class="badge bg-secondary"
                                         t-esc="record.state.value"
                                     />
-                                </div>
-                                <div class="o_kanban_manage_button_section">
-                                    <button
-                                        t-if="record.template_id.raw_value"
-                                        class="btn btn-lnk"
-                                        type="object"
-                                        name="action_unassign_shift"
-                                        title="Unassign"
-                                    ><i class="fa fa-times" role="img" /></button>
-                                </div>
                             </div>
-                            <div class="container o_kanban_card_content">
-                                <div class="row">
-                                    <p
-                                        t-if="record.template_id.raw_value"
-                                        title="Shift span"
-                                    >
-                                        <span class="badge badge-light"><span
-                                                t-esc="record.template_id.value"
-                                            /></span>
-                                        <i
-                                            class="fa fa-arrow-circle-right text-success"
-                                            role="img"
-                                        /> <field
-                                            name="start_hour"
-                                            widget="float_time"
-                                        />
-                                        <i class="fa fa-long-arrow-right" role="img" />
-                                        <i
-                                            class="fa fa-clock-o text-danger"
-                                            role="img"
-                                        /> <field name="end_hour" widget="float_time" />
-                                    </p>
-                                </div>
+                            <button
+                                    t-if="record.template_id.raw_value"
+                                    class="btn btn-link"
+                                    type="object"
+                                    name="action_unassign_shift"
+                                    title="Unassign"
+                                >
+                                <i class="fa fa-times" role="img" />
+                            </button>
+                        </aside>
+                        <main class="flex-grow-1">
+                            <div
+                                    t-if="record.template_id.raw_value"
+                                    title="Shift span"
+                                    class="d-flex align-items-center gap-2"
+                                >
+                                <span class="badge bg-light">
+                                    <span t-esc="record.template_id.value" />
+                                </span>
+                                <i
+                                        class="fa fa-arrow-circle-right text-success"
+                                        role="img"
+                                    />
+                                <field name="start_hour" widget="float_time" />
+                                <i class="fa fa-long-arrow-right" role="img" />
+                                <i class="fa fa-clock-o text-danger" role="img" />
+                                <field name="end_hour" widget="float_time" />
                             </div>
-                        </div>
+                        </main>
+                    </div>
                     </t>
                 </templates>
             </kanban>
@@ -482,7 +460,7 @@
                 date_start="start_time"
                 date_stop="end_time"
                 mode="month"
-                scales="week,month,year"
+                scales="day,week,month,year"
                 color="color"
                 event_open_popup="1"
                 create="0"
@@ -497,7 +475,7 @@
         <field name="model">hr.shift.planning.line</field>
         <field name="arch" type="xml">
             <form>
-                <header position="inside">
+                <header>
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
@@ -556,6 +534,15 @@
     <record id="shift_planning_action" model="ir.actions.act_window">
         <field name="res_model">hr.shift.planning</field>
         <field name="view_mode">kanban,tree,calendar,form</field>
+    </record>
+    <record id="action_regenerate_shifts" model="ir.actions.server">
+        <field name="name">Regenerate shifts</field>
+        <field name="model_id" ref="model_hr_shift_planning" />
+        <field name="binding_model_id" ref="model_hr_shift_planning" />
+        <field name="binding_view_types">list</field>
+        <field name="groups_id" eval="[(4, ref('group_shift_manager'))]" />
+        <field name="state">code</field>
+        <field name="code">records.regenerate_shifts()</field>
     </record>
     <menuitem
         id="shift_planning_root"

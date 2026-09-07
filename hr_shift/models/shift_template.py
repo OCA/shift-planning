@@ -4,18 +4,18 @@ from datetime import timedelta
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 from odoo.addons.base.models.res_partner import _tz_get
 
 WEEK_DAYS_SELECTION = [
-    ("0", _("Monday")),
-    ("1", _("Tuesday")),
-    ("2", _("Wednesday")),
-    ("3", _("Thursday")),
-    ("4", _("Friday")),
-    ("5", _("Saturday")),
-    ("6", _("Sunday")),
+    ("0", "Monday"),
+    ("1", "Tuesday"),
+    ("2", "Wednesday"),
+    ("3", "Thursday"),
+    ("4", "Friday"),
+    ("5", "Saturday"),
+    ("6", "Sunday"),
 ]
 
 
@@ -37,6 +37,7 @@ class ShiftTemplate(models.Model):
         help="This field is used in order to define in which timezone the employees "
         "will work.",
     )
+    active = fields.Boolean(default=True)
 
     def _prepare_time(self):
         def _parse_float_time(float_time):
@@ -78,3 +79,14 @@ class ShiftTemplate(models.Model):
                 )
             current_date += timedelta(days=1)
         return date_list
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        # Filter out records without name
+        filtered_vals_list = []
+        for vals in vals_list:
+            if vals.get("name"):
+                filtered_vals_list.append(vals)
+        if not filtered_vals_list:
+            return self.env["hr.shift.template"]
+        return super().create(filtered_vals_list)

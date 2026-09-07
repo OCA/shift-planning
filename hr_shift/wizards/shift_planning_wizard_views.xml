@@ -12,6 +12,7 @@
                                 string="How?"
                                 widget="radio"
                                 nolabel="1"
+                                colspan="2"
                             />
                             <field
                                 name="from_planning_id"
@@ -31,6 +32,7 @@
                         name="generate"
                         class="btn btn-primary"
                     >Generate</button>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
         </field>

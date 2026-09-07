@@ -5,6 +5,13 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="active" invisible="1" />
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <group>
                         <group>
                             <field name="name" />
@@ -36,6 +43,18 @@
                 <field name="day_of_week_end" />
                 <field name="tz" />
             </tree>
+        </field>
+    </record>
+    <record id="shift_template_search" model="ir.ui.view">
+        <field name="model">hr.shift.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active','=',False)]"
+                />
+            </search>
         </field>
     </record>
     <record id="shift_template_action" model="ir.actions.act_window">
