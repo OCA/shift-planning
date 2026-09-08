@@ -1,4 +1,7 @@
 
+[![Support the OCA](https://odoo-community.org/readme-banner-image)](https://odoo-community.org/get-involved?utm_source=repo-readme)
+
+# shift-planning
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/shift-planning&target_branch=16.0)
 [![Pre-commit Status](https://github.com/OCA/shift-planning/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/OCA/shift-planning/actions/workflows/pre-commit.yml?query=branch%3A16.0)
 [![Build Status](https://github.com/OCA/shift-planning/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/OCA/shift-planning/actions/workflows/test.yml?query=branch%3A16.0)
@@ -7,9 +10,13 @@
 
 <!-- /!\ do not modify above this line -->
 
+<<<<<<< before updating
 # shift-planning
 
 None
+=======
+
+>>>>>>> after updating
 
 <!-- /!\ do not modify below this line -->
 
