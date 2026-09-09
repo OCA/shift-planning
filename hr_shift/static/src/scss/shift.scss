@@ -1,0 +1,25 @@
+@mixin o-kanban-button-color {
+    @for $size from 1 through length($o-colors) {
+        // Note: the first color is supposed to be invisible if there is a color
+        // field but it is used as a default color when there is no color field
+        .o_button_color_#{$size - 1} {
+            background-color: nth($o-colors, $size);
+            color: white;
+        }
+    }
+}
+
+.o_kanban_view {
+    @include o-kanban-button-color;
+    .o_top_button_kanban {
+        position: absolute;
+        top: 8px;
+        left: auto;
+        bottom: auto;
+        right: 8px;
+        margin: -8px -8px 0 0;
+    }
+    .o_kanban_shift_employee {
+        width: 95%;
+    }
+}

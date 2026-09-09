@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="module_hr_shift" model="ir.module.category">
+        <field name="name">Shifts</field>
+        <field name="sequence">17</field>
+    </record>
+    <!-- Access Groups -->
+    <record id="group_shift_manager" model="res.groups">
+        <field name="name">Shift Manager</field>
+        <field name="category_id" ref="module_hr_shift" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+    <!-- Record Rules -->
+    <record id="hr_shift_planning_line_rule_user_own" model="ir.rule">
+        <field name="name">Personal shift lines</field>
+        <field name="model_id" ref="model_hr_shift_planning_line" />
+        <field
+            name="domain_force"
+        >[('employee_id.user_id', '=', user.id), ('state', '!=', 'unassigned')]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    </record>
+    <record id="hr_shift_planning_line_rule_user_all" model="ir.rule">
+        <field name="name">All shift lines</field>
+        <field name="model_id" ref="model_hr_shift_planning_line" />
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('group_shift_manager'))]" />
+    </record>
+</odoo>
