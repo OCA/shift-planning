@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="hr_employee_shift_planning_tree" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_shift_area.hr_employee_shift_planning_tree" />
+        <field name="arch" type="xml">
+            <field name="area_ids" position="after">
+                <field name="skill_tag_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+</odoo>

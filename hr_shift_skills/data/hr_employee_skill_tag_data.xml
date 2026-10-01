@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="skill_tag_call_center" model="hr.employee.skill.tag">
+        <field name="name">Call Center</field>
+    </record>
+    <record id="skill_tag_reception_0" model="hr.employee.skill.tag">
+        <field name="name">Planta 0</field>
+    </record>
+    <record id="skill_tag_reception_1" model="hr.employee.skill.tag">
+        <field name="name">Planta 1</field>
+    </record>
+    <record id="skill_tag_reception_3" model="hr.employee.skill.tag">
+        <field name="name">Planta 3</field>
+    </record>
+    <record id="skill_tag_reception_4" model="hr.employee.skill.tag">
+        <field name="name">Planta 4</field>
+    </record>
+</odoo>

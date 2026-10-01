@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="shift_planning_shift_kanban" model="ir.ui.view">
+        <field name="model">hr.shift.planning.shift</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_shift_kanban" />
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="employee_skill_tag_ids" />
+            </field>
+            <!--<t t-esc="record.employee_id.value" position="after">
+                <field
+                    name="employee_skill_tag_ids"
+                    widget="many2many_tags"
+                    class="ml-2"
+                />
+            </t>-->
+        </field>
+    </record>
+</odoo>
