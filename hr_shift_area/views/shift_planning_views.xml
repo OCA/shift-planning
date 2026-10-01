@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="shift_planning_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field
+                    name="area_ids"
+                    widget="many2many_tags"
+                    attrs="{'readonly': [('state', '!=', 'new')]}"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="shift_planning_line_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_line_form" />
+        <field name="arch" type="xml">
+            <field name="end_time" position="after">
+                <field name="template_area_id" readonly="1" />
+            </field>
+        </field>
+    </record>
+    <record id="shift_planning_line_calendar" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_line_calendar" />
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="template_area_id" filters="1" string="Area" />
+            </field>
+        </field>
+    </record>
+</odoo>

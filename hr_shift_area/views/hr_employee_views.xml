@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="hr_employee_shift_planning_tree" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" create="0" delete="0">
+                <field name="name" readonly="1" />
+                <field name="company_id" readonly="1" />
+                <field name="job_id" readonly="1" />
+                <field name="address_id" readonly="1" />
+                <field name="area_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_employee_shift_planning_action" model="ir.actions.act_window">
+        <field name="name">Shift Planning Employees</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="hr_employee_shift_planning_tree" />
+        <field name="domain">[('shift_planning', '=', True)]</field>
+    </record>
+    <menuitem
+        id="hr_employee_shift_planning_menu"
+        name="Employees"
+        parent="hr_shift.shift_planning_root"
+        action="hr_employee_shift_planning_action"
+        sequence="40"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

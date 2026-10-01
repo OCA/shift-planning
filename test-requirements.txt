@@ -1,0 +1,1 @@
+odoo-addon-hr_shift @ git+https://github.com/tegin/shift-planning.git@16.0-mig-hr_shift#subdirectory=hr_shift
