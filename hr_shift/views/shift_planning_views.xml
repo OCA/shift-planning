@@ -20,6 +20,20 @@
                         attrs="{'invisible': ['|', ('state', '!=', 'new'), ('end_date', '=', False)]}"
                     />
                     <button
+                        name="action_set_planned"
+                        type="object"
+                        class="btn-primary"
+                        string="Mark as Planned"
+                        attrs="{'invisible': [('state', '!=', 'assignment')]}"
+                    />
+                    <button
+                        name="action_set_assignment"
+                        type="object"
+                        class="btn-secondary"
+                        string="Back to Assignment"
+                        attrs="{'invisible': [('state', '!=', 'planned')]}"
+                    />
+                    <button
                         type="object"
                         name="copy_to_planning"
                         class="btn btn-secondary"

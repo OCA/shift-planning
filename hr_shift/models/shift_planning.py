@@ -38,6 +38,7 @@ class ShiftPlanning(models.Model):
             ("planned", "Planned"),
         ],
         default="new",
+        readonly=True,
     )
     days_data = fields.Serialized(default={}, compute="_compute_days_data")
     # Decidir cómo mostrar # nº asignados por turno, nº sin asignar
@@ -196,6 +197,18 @@ class ShiftPlanning(models.Model):
             planning=self.display_name,
         )
         return action
+
+    def action_set_planned(self):
+        self.ensure_one()
+        if self.state != "assignment":
+            return
+        self.state = "planned"
+
+    def action_set_assignment(self):
+        self.ensure_one()
+        if self.state != "planned":
+            return
+        self.state = "assignment"
 
 
 class ShiftPlanningShift(models.Model):
