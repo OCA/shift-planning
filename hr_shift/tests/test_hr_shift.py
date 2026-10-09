@@ -207,3 +207,73 @@ class TestHrShift(TestHrShiftBase):
             }
         )
         self.assertFalse(self.employee_a.current_shift_id)
+
+    def _assign_night_shift(self):
+        template = self.env["hr.shift.template"].create(
+            {"name": "Night", "start_time": 22.0, "end_time": 6.0, "tz": "UTC"}
+        )
+        self.planning.generate_shifts()
+        line = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        ).line_ids.filtered(lambda x: x.day_number == "0")
+        line.template_id = template
+        return line
+
+    def test_night_shift(self):
+        line = self._assign_night_shift()
+        self.assertEqual(line.end_time, fields.Datetime.from_string("2025-01-14 06:00"))
+        resource = self.employee_a.resource_id
+        day = datetime(2025, 1, 13, tzinfo=pytz.utc)
+        shifts = self.calendar._resource_shift_for_datetime_range(day, day, resource)
+        self.assertIn(line, shifts)
+        next_day = datetime(2025, 1, 14, tzinfo=pytz.utc)
+        intervals = self.calendar._attendance_intervals_batch(
+            next_day, next_day, resources=resource
+        )[resource.id]
+        # The tail of the night shift doesn't belong to the next day
+        self.assertFalse([i for i in intervals if i[2] == line])
+
+    def test_night_shift_leave_next_day(self):
+        self.env["resource.calendar.leaves"].create(
+            {
+                "resource_id": self.employee_a.resource_id.id,
+                "date_from": "2025-01-14 08:00:00",
+                "date_to": "2025-01-14 17:00:00",
+            }
+        )
+        line = self._assign_night_shift()
+        self.assertEqual(line.state, "assigned")
+
+    def test_night_shift_attendance_intervals_local_day(self):
+        madrid = pytz.timezone("Europe/Madrid")
+        template = self.env["hr.shift.template"].create(
+            {
+                "name": "Night",
+                "start_time": 22.0,
+                "end_time": 6.0,
+                "tz": "Europe/Madrid",
+            }
+        )
+        self.planning.generate_shifts()
+        lines = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        ).line_ids.filtered(lambda x: x.day_number in ("0", "1"))
+        lines.template_id = template
+        line_1 = lines.filtered(lambda x: x.day_number == "1")
+        # A local day given in UTC: its night shift is whole, not cut at
+        # midnight, and the tail of the previous one isn't included
+        start_dt = madrid.localize(datetime(2025, 1, 14)).astimezone(pytz.utc)
+        end_dt = madrid.localize(datetime(2025, 1, 15)).astimezone(pytz.utc)
+        res = self.calendar._attendance_intervals_batch(
+            start_dt, end_dt, resources=self.employee_a.resource_id, tz=madrid
+        )[self.employee_a.resource_id.id]
+        self.assertEqual(
+            [i for i in res if i[2] in lines],
+            [
+                (
+                    madrid.localize(datetime(2025, 1, 14, 22)),
+                    madrid.localize(datetime(2025, 1, 15, 6)),
+                    line_1,
+                )
+            ],
+        )
