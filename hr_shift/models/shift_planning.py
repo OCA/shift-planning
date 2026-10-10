@@ -1,6 +1,6 @@
 # Copyright 2024 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -448,6 +448,8 @@ class ShiftPlanningLine(models.Model):
             )
             shift.start_time = start_time.astimezone(pytz.UTC).replace(tzinfo=None)
             shift.end_time = end_time.astimezone(pytz.UTC).replace(tzinfo=None)
+            if shift.end_time < shift.start_time:
+                shift.end_time += timedelta(days=1)
 
     def _compute_start_date(self):
         for shift in self:
@@ -477,25 +479,31 @@ class ShiftPlanningLine(models.Model):
         if not (self.start_time and self.end_time and self.employee_id):
             return False
         local_tz = pytz.timezone(self.template_id.tz or self.env.user.tz)
-        start_time = fields.datetime.combine(
-            pytz.utc.localize(self.start_time).astimezone(local_tz),
-            self.start_time.min.time(),
+        # Local day the shift starts on, in UTC
+        local_start_day = pytz.utc.localize(self.start_time).astimezone(local_tz).date()
+        start_time = (
+            local_tz.localize(datetime.combine(local_start_day, datetime.min.time()))
+            .astimezone(pytz.utc)
+            .replace(tzinfo=None)
         )
-        end_time = fields.datetime.combine(
-            pytz.utc.localize(self.end_time).astimezone(local_tz),
-            self.end_time.max.time(),
+        end_time = (
+            local_tz.localize(datetime.combine(local_start_day, datetime.max.time()))
+            .astimezone(pytz.utc)
+            .replace(tzinfo=None)
         )
         return bool(
             self.env["resource.calendar.leaves"]
             .sudo()
-            .search(
-                [
-                    ("resource_id", "=", self.employee_id.resource_id.id),
-                    ("date_from", "<=", end_time),
-                    ("date_to", ">=", start_time),
-                ]
-            )
+            .search(self._get_is_on_leave_domain(start_time, end_time))
         )
+
+    def _get_is_on_leave_domain(self, start_time, end_time):
+        """Hook to extend the leave search domain"""
+        return [
+            ("resource_id", "=", self.employee_id.resource_id.id),
+            ("date_from", "<=", end_time),
+            ("date_to", ">=", start_time),
+        ]
 
     def action_unassign_shift(self):
         self.template_id = False

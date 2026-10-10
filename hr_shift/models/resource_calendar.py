@@ -19,12 +19,13 @@ class ResourceCalendar(models.Model):
             start_dt, start_dt.min.time(), tzinfo=tz or pytz.UTC
         )
         max_time = datetime.combine(end_dt, end_dt.max.time(), tzinfo=tz or pytz.UTC)
+        # Overlap: night shifts end on the next day
         shifts = self.env["hr.shift.planning.line"].search(
             [
                 ("resource_id", "in", resources.ids),
                 ("state", "=", "assigned"),
-                ("start_time", ">=", min_time),
-                ("end_time", "<=", max_time),
+                ("start_time", "<=", max_time),
+                ("end_time", ">=", min_time),
             ]
         )
         return shifts
@@ -42,6 +43,13 @@ class ResourceCalendar(models.Model):
             shift_ids = self._resource_shift_for_datetime_range(
                 start_dt, end_dt, resources, tz=tz
             )
+            # Night shifts span two days: clamp them to the requested days
+            window_start = datetime.combine(
+                start_dt, start_dt.min.time(), tzinfo=tz or pytz.UTC
+            )
+            window_end = datetime.combine(
+                end_dt, end_dt.max.time(), tzinfo=tz or pytz.UTC
+            )
             for resource, shifts in groupby(shift_ids, lambda x: x.resource_id):
                 intervals_to_add = []
                 intervals_to_remove = []
@@ -58,8 +66,15 @@ class ResourceCalendar(models.Model):
                             or shift.end_time.date() == end.date()
                         )
                     ]
-                    start_time = string_to_datetime(shift.start_time).astimezone(tz)
-                    end_time = string_to_datetime(shift.end_time).astimezone(tz)
+                    start_time = max(
+                        string_to_datetime(shift.start_time).astimezone(tz),
+                        window_start,
+                    )
+                    end_time = min(
+                        string_to_datetime(shift.end_time).astimezone(tz), window_end
+                    )
+                    if start_time >= end_time:
+                        continue
                     intervals_to_add.append((start_time, end_time, shift))
                 res[resource.id]._items = [
                     x for x in resource_intervals if x not in intervals_to_remove
