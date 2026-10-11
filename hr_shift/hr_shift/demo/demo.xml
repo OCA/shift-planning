@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="template_morning" model="hr.shift.template">
+        <field name="name">Morning 8-14</field>
+        <field name="day_of_week_start">0</field>
+        <field name="day_of_week_end">4</field>
+        <field name="start_time">8</field>
+        <field name="end_time">14</field>
+        <field name="color">10</field>
+    </record>
+    <record id="template_afternoon" model="hr.shift.template">
+        <field name="name">Afternoon 14-20</field>
+        <field name="day_of_week_start">0</field>
+        <field name="day_of_week_end">4</field>
+        <field name="start_time">14</field>
+        <field name="end_time">20</field>
+        <field name="color">4</field>
+    </record>
+    <record id="hr.employee_admin" model="hr.employee">
+        <field name="shift_planning" eval="True" />
+    </record>
+    <record id="hr.employee_qdp" model="hr.employee">
+        <field name="shift_planning" eval="True" />
+    </record>
+    <record id="planning_2025_02" model="hr.shift.planning">
+        <field name="year">2025</field>
+        <field name="week_number">2</field>
+        <field name="start_date">2025-01-06</field>
+        <field name="end_date">2025-01-12</field>
+    </record>
+    <function
+        model="hr.shift.planning"
+        name="generate_shifts"
+        eval="[[ref('planning_2025_02')]]"
+    />
+</odoo>
