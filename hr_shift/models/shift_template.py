@@ -32,6 +32,10 @@ class ShiftTemplate(models.Model):
     start_time = fields.Float()
     end_time = fields.Float()
     color = fields.Integer()
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        help="Leave it empty to share the shift with all the companies",
+    )
     tz = fields.Selection(
         _tz_get,
         string="Timezone",

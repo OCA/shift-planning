@@ -6,6 +6,7 @@ import pytz
 from freezegun import freeze_time
 
 from odoo import fields
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests import Form
 from odoo.tools import mute_logger
 
@@ -29,6 +30,32 @@ class TestHrShift(TestHrShiftBase):
         self.assertEqual(
             self.planning.display_name, "2025 Week 3 (2025-01-13 - 2025-01-19)"
         )
+
+    def test_multi_company(self):
+        company_b = self.env["res.company"].create({"name": "Company B"})
+        employee_d = self.env["hr.employee"].create(
+            {
+                "name": "Test employee D",
+                "company_id": company_b.id,
+                "shift_planning": True,
+            }
+        )
+        template_b = self.template_morning.copy({"company_id": company_b.id})
+        # Shared planning: every company
+        self.planning.generate_shifts()
+        self.assertIn(employee_d, self.planning.shift_ids.employee_id)
+        with self.assertRaises(ValidationError):
+            self.planning.copy({"company_id": company_b.id})
+        # Planning of a company: only its employees and shifts
+        planning_b = self.planning.copy({"week_number": 4, "company_id": company_b.id})
+        planning_b.generate_shifts()
+        self.assertEqual(planning_b.shift_ids.employee_id, employee_d)
+        with self.assertRaises(UserError):
+            self.planning.shift_ids.filtered(
+                lambda x: x.employee_id == self.employee_a
+            ).template_id = template_b
+        planning_b.shift_ids.template_id = template_b
+        self.assertEqual(planning_b.shift_ids.line_ids.template_id, template_b)
 
     def test_attendance_intervals_batch(self):
         self.planning.generate_shifts()

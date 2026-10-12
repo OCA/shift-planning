@@ -6,7 +6,7 @@ import pytz
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from .shift_template import WEEK_DAYS_SELECTION
 
@@ -40,16 +40,26 @@ class ShiftPlanning(models.Model):
         default="new",
     )
     days_data = fields.Serialized(default={}, compute="_compute_days_data")
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        help="Leave it empty to plan the employees of all the companies",
+    )
     # Decidir cómo mostrar # nº asignados por turno, nº sin asignar
     # summary = fields.Html()
 
-    _sql_constraints = [
-        (
-            "unique_year_week",
-            "unique(year,week_number)",
-            "You can't plan the same week twice!",
-        )
-    ]
+    @api.constrains("year", "week_number", "company_id")
+    def _check_unique_year_week(self):
+        for planning in self:
+            domain = [
+                ("id", "!=", planning.id),
+                ("year", "=", planning.year),
+                ("week_number", "=", planning.week_number),
+            ]
+            if planning.company_id:
+                domain.append(("company_id", "in", [False, planning.company_id.id]))
+            # sudo: plannings of other companies count too
+            if self.sudo().search_count(domain, limit=1):
+                raise ValidationError(_("You can't plan the same week twice!"))
 
     @api.model
     def _get_last_plan(self):
@@ -134,9 +144,10 @@ class ShiftPlanning(models.Model):
 
     def generate_shifts(self):
         self.ensure_one()
-        available_employes = self.env["hr.employee"].search(
-            [("shift_planning", "=", True)]
-        )
+        domain = [("shift_planning", "=", True)]
+        if self.company_id:
+            domain.append(("company_id", "=", self.company_id.id))
+        available_employes = self.env["hr.employee"].search(domain)
         shifts = self.env["hr.shift.planning.shift"].create(
             [
                 {
@@ -201,12 +212,18 @@ class ShiftPlanning(models.Model):
 class ShiftPlanningShift(models.Model):
     _name = "hr.shift.planning.shift"
     _description = "Shift of the week for a given employee"
+    _check_company_auto = True
 
-    planning_id = fields.Many2one(comodel_name="hr.shift.planning", ondelete="cascade")
+    planning_id = fields.Many2one(
+        comodel_name="hr.shift.planning", ondelete="cascade", check_company=True
+    )
     employee_id = fields.Many2one(comodel_name="hr.employee", ondelete="cascade")
+    company_id = fields.Many2one(related="employee_id.company_id", store=True)
     image_128 = fields.Image(related="employee_id.image_128")
     template_id = fields.Many2one(
-        comodel_name="hr.shift.template", group_expand="_group_expand_template_id"
+        comodel_name="hr.shift.template",
+        group_expand="_group_expand_template_id",
+        check_company=True,
     )
     color = fields.Integer(related="template_id.color")
     line_ids = fields.One2many(
@@ -323,16 +340,19 @@ class ShiftPlanningLine(models.Model):
     _name = "hr.shift.planning.line"
     _description = "Shift of the day for the employee"
     _order = "shift_id desc, day_number asc"
+    _check_company_auto = True
 
     shift_id = fields.Many2one(
         comodel_name="hr.shift.planning.shift", ondelete="cascade"
     )
+    company_id = fields.Many2one(related="shift_id.company_id")
     template_id = fields.Many2one(
         comodel_name="hr.shift.template",
         store=True,
         readonly=False,
         compute="_compute_template_id",
         group_expand="_group_expand_template_id",
+        check_company=True,
     )
     start_hour = fields.Float(string="Start hour", related="template_id.start_time")
     end_hour = fields.Float(string="End hour", related="template_id.end_time")

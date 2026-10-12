@@ -4,6 +4,11 @@ After configuring the application we can start making plannings. To create a new
 2. Set the year and week number for the planning and click *Save*.
 3. Now click on *Generate* to pre-create the shifts assignments for your employees.
 
+In a multi-company environment, a planning can be restricted to one company: only its
+employees are planned and only its users see it. The same goes for the shifts: a shift
+of a company can't be assigned to the employees of another one. Leave the company empty
+to share them with every company.
+
 You can start assigning shifts click on the *Shifts* smart button where you'll go to
 a kanban view with a card per employee that you can drag into the corresponding shift.
 Once you do it, you'll the color of the week days in the card changes to the color of
