@@ -80,6 +80,35 @@ class TestHrShift(TestHrShiftBase):
         self.assertEqual(shift_a_line_1.template_id, template_morning)
 
     @mute_logger("odoo.models.unlink")
+    def test_hr_shift_planning_overnight(self):
+        template_night = self.env["hr.shift.template"].create(
+            {
+                "name": "Night 22-6",
+                "day_of_week_start": "0",
+                "day_of_week_end": "4",
+                "start_time": 22,
+                "end_time": 6,
+                "tz": "Europe/Madrid",
+            }
+        )
+        self.planning.generate_shifts()
+        shift_a = self.planning.shift_ids.filtered(
+            lambda x: x.employee_id == self.employee_a
+        )
+        shift_a.line_ids.template_id = template_night
+        shift_a_line_0 = shift_a.line_ids.filtered(lambda x: x.day_number == "0")
+        self.assertEqual(
+            shift_a_line_0.start_date, fields.Date.from_string("2025-01-13")
+        )
+        self.assertEqual(
+            shift_a_line_0.start_time,
+            fields.Datetime.from_string("2025-01-13 21:00:00"),
+        )
+        self.assertEqual(
+            shift_a_line_0.end_time, fields.Datetime.from_string("2025-01-14 05:00:00")
+        )
+        self.assertEqual(shift_a_line_0.duration_hours, 8.0)
+
     def test_hr_shift_planning_full(self):
         self.assertEqual(self.planning.state, "new")
         self.planning.generate_shifts()

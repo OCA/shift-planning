@@ -12,11 +12,25 @@
         </t>
     </t>
 
-    <t t-name="hr_shift.ListView.Buttons" owl="1">
-        <t t-call="ShiftPlanning.generate_planning_button" />
+    <t
+        t-name="hr_shift.ListView.Buttons"
+        t-inherit="web.ListView.Buttons"
+        t-inherit-mode="primary"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside">
+            <t t-call="ShiftPlanning.generate_planning_button" />
+        </xpath>
     </t>
 
-    <t t-name="hr_shift.KanbanView.Buttons" owl="1">
-        <t t-call="ShiftPlanning.generate_planning_button" />
+    <t
+        t-name="hr_shift.KanbanView.Buttons"
+        t-inherit="web.KanbanView.Buttons"
+        t-inherit-mode="primary"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('o_cp_buttons')]" position="inside">
+            <t t-call="ShiftPlanning.generate_planning_button" />
+        </xpath>
     </t>
 </templates>

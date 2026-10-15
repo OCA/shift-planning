@@ -1,6 +1,6 @@
 # Copyright 2024 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -443,6 +443,13 @@ class ShiftPlanningLine(models.Model):
                 and shift.template_id._prepare_time()["end_time"]
                 or {"hour": 23, "minute": 59}
             )
+            end_date = shift_date
+            if (
+                shift.template_id
+                and shift.template_id.end_time <= shift.template_id.start_time
+            ):
+                # Overnight shift: the end time falls on the next day.
+                end_date += timedelta(days=1)
             tz = pytz.timezone(shift.template_id.tz or self.env.user.tz)
             start_time = tz.localize(
                 datetime.combine(
@@ -454,7 +461,7 @@ class ShiftPlanningLine(models.Model):
             )
             end_time = tz.localize(
                 datetime.combine(
-                    shift_date,
+                    end_date,
                     datetime.min.time().replace(
                         hour=end_time["hour"], minute=end_time["minute"]
                     ),
