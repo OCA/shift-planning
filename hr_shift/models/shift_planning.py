@@ -249,7 +249,7 @@ class ShiftPlanningShift(models.Model):
     ]
 
     @api.model
-    def _group_expand_template_id(self, templates, domain):
+    def _group_expand_template_id(self, templates, domain, order):
         return self.env["hr.shift.template"].search([])
 
     @api.depends("line_ids")
@@ -415,7 +415,7 @@ class ShiftPlanningLine(models.Model):
                 line.template_id = False
 
     @api.model
-    def _group_expand_template_id(self, templates, domain):
+    def _group_expand_template_id(self, templates, domain, order):
         return self.env["hr.shift.template"].search([])
 
     @api.depends("day_number", "template_id", "state")
