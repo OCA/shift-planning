@@ -448,7 +448,7 @@ class ShiftPlanningLine(models.Model):
                 shift.template_id
                 and shift.template_id.end_time <= shift.template_id.start_time
             ):
-                # Overnight shift: the end time falls on the next day.
+                # Overnight shift: the end time falls on the next day
                 end_date += timedelta(days=1)
             tz = pytz.timezone(shift.template_id.tz or self.env.user.tz)
             start_time = tz.localize(
@@ -498,25 +498,31 @@ class ShiftPlanningLine(models.Model):
         if not (self.start_time and self.end_time and self.employee_id):
             return False
         local_tz = pytz.timezone(self.template_id.tz or self.env.user.tz)
-        start_time = fields.datetime.combine(
-            pytz.utc.localize(self.start_time).astimezone(local_tz),
-            self.start_time.min.time(),
+        # Local day the shift starts on, in UTC
+        local_start_day = pytz.utc.localize(self.start_time).astimezone(local_tz).date()
+        start_time = (
+            local_tz.localize(datetime.combine(local_start_day, datetime.min.time()))
+            .astimezone(pytz.utc)
+            .replace(tzinfo=None)
         )
-        end_time = fields.datetime.combine(
-            pytz.utc.localize(self.end_time).astimezone(local_tz),
-            self.end_time.max.time(),
+        end_time = (
+            local_tz.localize(datetime.combine(local_start_day, datetime.max.time()))
+            .astimezone(pytz.utc)
+            .replace(tzinfo=None)
         )
         return bool(
             self.env["resource.calendar.leaves"]
             .sudo()
-            .search(
-                [
-                    ("resource_id", "=", self.employee_id.resource_id.id),
-                    ("date_from", "<=", end_time),
-                    ("date_to", ">=", start_time),
-                ]
-            )
+            .search(self._get_is_on_leave_domain(start_time, end_time))
         )
+
+    def _get_is_on_leave_domain(self, start_time, end_time):
+        """Hook to extend the leave search domain"""
+        return [
+            ("resource_id", "=", self.employee_id.resource_id.id),
+            ("date_from", "<=", end_time),
+            ("date_to", ">=", start_time),
+        ]
 
     def action_unassign_shift(self):
         self.template_id = False
