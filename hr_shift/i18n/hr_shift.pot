@@ -68,6 +68,14 @@ msgid "Companies"
 msgstr ""
 
 #. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__company_id
+msgid "Company"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model,name:hr_shift.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -348,6 +356,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__write_date
 #: model:ir.model.fields,field_description:hr_shift.field_shift_planning_wizard__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_planning__company_id
+msgid "Leave it empty to plan the employees of all the companies"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_template__company_id
+msgid "Leave it empty to share the shift with all the companies"
 msgstr ""
 
 #. module: hr_shift
@@ -678,7 +696,8 @@ msgid "You can't assign an employee twice to the same plan!"
 msgstr ""
 
 #. module: hr_shift
-#: model:ir.model.constraint,message:hr_shift.constraint_hr_shift_planning_unique_year_week
+#. odoo-python
+#: code:addons/hr_shift/models/shift_planning.py:0
 msgid "You can't plan the same week twice!"
 msgstr ""
 
