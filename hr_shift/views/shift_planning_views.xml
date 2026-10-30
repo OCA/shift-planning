@@ -68,6 +68,11 @@
                         <group>
                             <field name="year" readonly="state != 'new'" />
                             <field name="week_number" readonly="state != 'new'" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                readonly="state != 'new'"
+                            />
                         </group>
                         <group>
                             <field name="start_date" readonly="state != 'new'" />
@@ -193,6 +198,7 @@
                 <field name="week_number" />
                 <field name="start_date" />
                 <field name="end_date" />
+                <field name="company_id" groups="base.group_multi_company" />
             </list>
         </field>
     </record>

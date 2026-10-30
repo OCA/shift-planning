@@ -16,6 +16,10 @@
                         <group>
                             <field name="name" />
                             <field name="color" widget="color_picker" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
                         </group>
                         <group>
                             <field name="start_time" widget="float_time" />
@@ -42,6 +46,7 @@
                 <field name="day_of_week_start" />
                 <field name="day_of_week_end" />
                 <field name="tz" />
+                <field name="company_id" groups="base.group_multi_company" />
             </list>
         </field>
     </record>

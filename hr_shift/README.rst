@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ================
 Employees Shifts
 ================
@@ -17,7 +13,7 @@ Employees Shifts
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fshift--planning-lightgray.png?logo=github
@@ -79,6 +75,12 @@ create a new one:
 2. Set the year and week number for the planning and click *Save*.
 3. Now click on *Generate* to pre-create the shifts assignments for your
    employees.
+
+In a multi-company environment, a planning can be restricted to one
+company: only its employees are planned and only its users see it. The
+same goes for the shifts: a shift of a company can't be assigned to the
+employees of another one. Leave the company empty to share them with
+every company.
 
 You can start assigning shifts click on the *Shifts* smart button where
 you'll go to a kanban view with a card per employee that you can drag
