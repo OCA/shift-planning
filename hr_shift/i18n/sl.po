@@ -25,7 +25,9 @@ msgstr "Izmene za %(day)s v razporedu %(planning)s"
 
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.shift_planning_kanban
-msgid "<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" title=\"Planning\"/>"
+msgid ""
+"<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" "
+"title=\"Planning\"/>"
 msgstr ""
 "<i class=\"fa fa-calendar text-primary me-2\" role=\"img\" "
 "title=\"Razpored\"/>"
@@ -72,6 +74,14 @@ msgstr "Barva"
 #: model:ir.model,name:hr_shift.model_res_company
 msgid "Companies"
 msgstr "Družbe"
+
+#. module: hr_shift
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_line__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__company_id
+#: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__company_id
+msgid "Company"
+msgstr ""
 
 #. module: hr_shift
 #: model:ir.model,name:hr_shift.model_res_config_settings
@@ -361,6 +371,16 @@ msgid "Last Updated on"
 msgstr "Zadnjič posodobljeno"
 
 #. module: hr_shift
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_planning__company_id
+msgid "Leave it empty to plan the employees of all the companies"
+msgstr ""
+
+#. module: hr_shift
+#: model:ir.model.fields,help:hr_shift.field_hr_shift_template__company_id
+msgid "Leave it empty to share the shift with all the companies"
+msgstr ""
+
+#. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__line_ids
 msgid "Line"
 msgstr "Vrstica"
@@ -465,8 +485,8 @@ msgstr "Označi kot pregledano"
 #. module: hr_shift
 #: model_terms:ir.ui.view,arch_db:hr_shift.res_config_settings_view_form
 msgid ""
-"Set default company's default working start and end day to be used in shifts"
-" span"
+"Set default company's default working start and end day to be used in shifts "
+"span"
 msgstr ""
 "Določite privzeti začetni in končni dan delovnega tedna družbe za uporabo "
 "pri razponu izmen"
@@ -690,7 +710,8 @@ msgid "You can't assign an employee twice to the same plan!"
 msgstr "Zaposlenega ne morete dvakrat dodeliti istemu razporedu!"
 
 #. module: hr_shift
-#: model:ir.model.constraint,message:hr_shift.constraint_hr_shift_planning_unique_year_week
+#. odoo-python
+#: code:addons/hr_shift/models/shift_planning.py:0
 msgid "You can't plan the same week twice!"
 msgstr "Istega tedna ne morete načrtovati dvakrat!"
 
