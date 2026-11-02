@@ -1,6 +1,6 @@
 # Copyright 2024 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 
@@ -15,16 +15,23 @@ class ResourceCalendar(models.Model):
 
     @api.model
     def _resource_shift_for_datetime_range(self, start_dt, end_dt, resources, tz=None):
-        min_time = datetime.combine(
-            start_dt, start_dt.min.time(), tzinfo=tz or pytz.UTC
+        """Shifts starting on the local days of the range: a night shift
+        belongs to the day it starts on"""
+        tz = tz or pytz.UTC
+        # end_dt is exclusive, and start_dt == end_dt stands for that day
+        end_dt = max(start_dt, end_dt - timedelta(microseconds=1))
+        min_time = tz.localize(
+            datetime.combine(start_dt.astimezone(tz).date(), datetime.min.time())
         )
-        max_time = datetime.combine(end_dt, end_dt.max.time(), tzinfo=tz or pytz.UTC)
+        max_time = tz.localize(
+            datetime.combine(end_dt.astimezone(tz).date(), datetime.max.time())
+        )
         shifts = self.env["hr.shift.planning.line"].search(
             [
                 ("resource_id", "in", resources.ids),
                 ("state", "=", "assigned"),
                 ("start_time", ">=", min_time),
-                ("end_time", "<=", max_time),
+                ("start_time", "<=", max_time),
             ]
         )
         return shifts
@@ -47,6 +54,8 @@ class ResourceCalendar(models.Model):
                 intervals_to_remove = []
                 resource_intervals = res[resource.id]._items
                 for shift in shifts:
+                    start_time = string_to_datetime(shift.start_time).astimezone(tz)
+                    end_time = string_to_datetime(shift.end_time).astimezone(tz)
                     # Remove any other interval that belongs to any of the dates of the
                     # shift (no matter the hours, as if the shift is around midnight,
                     # there will be a mix of 2 dates)
@@ -54,12 +63,10 @@ class ResourceCalendar(models.Model):
                         (start, end, resource_item)
                         for start, end, resource_item in resource_intervals
                         if (
-                            shift.start_time.date() == start.date()
-                            or shift.end_time.date() == end.date()
+                            start_time.date() == start.date()
+                            or end_time.date() == end.date()
                         )
                     ]
-                    start_time = string_to_datetime(shift.start_time).astimezone(tz)
-                    end_time = string_to_datetime(shift.end_time).astimezone(tz)
                     intervals_to_add.append((start_time, end_time, shift))
                 res[resource.id]._items = [
                     x for x in resource_intervals if x not in intervals_to_remove
