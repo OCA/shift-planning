@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-08-11 12:48+0000\n"
+"PO-Revision-Date: 2026-11-02 10:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -80,7 +80,7 @@ msgstr "Aziende"
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__company_id
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_template__company_id
 msgid "Company"
-msgstr ""
+msgstr "Azienda"
 
 #. module: hr_shift
 #: model:ir.model,name:hr_shift.model_res_config_settings
@@ -370,12 +370,12 @@ msgstr "Ultimo aggiornamento il"
 #. module: hr_shift
 #: model:ir.model.fields,help:hr_shift.field_hr_shift_planning__company_id
 msgid "Leave it empty to plan the employees of all the companies"
-msgstr ""
+msgstr "Lasciare vuoto per pianificare i dipendenti di tutte le aziende"
 
 #. module: hr_shift
 #: model:ir.model.fields,help:hr_shift.field_hr_shift_template__company_id
 msgid "Leave it empty to share the shift with all the companies"
-msgstr ""
+msgstr "Lasciare vuoto per condividere il turno con tutte le aziende"
 
 #. module: hr_shift
 #: model:ir.model.fields,field_description:hr_shift.field_hr_shift_planning_shift__line_ids
