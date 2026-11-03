@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ====================================
 Employees Shifts and public holidays
 ====================================
@@ -17,7 +13,7 @@ Employees Shifts and public holidays
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fshift--planning-lightgray.png?logo=github
@@ -47,6 +43,12 @@ will be assigned for that day. Those days will be marked as black in the
 assingment card.
 
 |Public holidays in shift cards|
+
+By default it is not possible to assign a shift template on a public
+holiday. If your company does work on some public holidays, enable
+*Shift assignment overrides public holidays* in the Employees settings:
+lines keep being flagged as holidays, but explicitly assigning a
+template to them turns them into regular working shifts.
 
 .. |Public holidays in shift cards| image:: https://raw.githubusercontent.com/OCA/shift-planning/18.0/hr_shift_holidays_public/static/description/public_holidays.png
 
