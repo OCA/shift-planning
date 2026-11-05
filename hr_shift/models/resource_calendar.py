@@ -6,8 +6,7 @@ import pytz
 
 from odoo import api, models
 from odoo.tools import groupby
-
-from odoo.addons.resource.models.utils import string_to_datetime
+from odoo.tools.intervals import Intervals
 
 
 class ResourceCalendar(models.Model):
@@ -43,25 +42,24 @@ class ResourceCalendar(models.Model):
                 start_dt, end_dt, resources, tz=tz
             )
             for resource, shifts in groupby(shift_ids, lambda x: x.resource_id):
-                intervals_to_add = []
-                intervals_to_remove = []
-                resource_intervals = res[resource.id]._items
-                for shift in shifts:
-                    # Remove any other interval that belongs to any of the dates of the
-                    # shift (no matter the hours, as if the shift is around midnight,
-                    # there will be a mix of 2 dates)
-                    intervals_to_remove += [
-                        (start, end, resource_item)
-                        for start, end, resource_item in resource_intervals
-                        if (
-                            shift.start_time.date() == start.date()
-                            or shift.end_time.date() == end.date()
-                        )
-                    ]
-                    start_time = string_to_datetime(shift.start_time).astimezone(tz)
-                    end_time = string_to_datetime(shift.end_time).astimezone(tz)
-                    intervals_to_add.append((start_time, end_time, shift))
-                res[resource.id]._items = [
-                    x for x in resource_intervals if x not in intervals_to_remove
-                ] + intervals_to_add
+                shifts_for_resource = list(shifts)
+                # Build intervals to remove (one per shift date range)
+                dates_to_clear = Intervals([
+                    (
+                        pytz.UTC.localize(shift.start_time.replace(hour=0, minute=0, second=0)),
+                        pytz.UTC.localize(shift.end_time.replace(hour=23, minute=59, second=59)),
+                        self.env['resource.calendar.attendance'].browse(),
+                    )
+                    for shift in shifts_for_resource
+                ])
+                # Build shift intervals to add
+                shift_intervals_to_add = Intervals([
+                    (
+                        pytz.utc.localize(shift.start_time).astimezone(tz),
+                        pytz.utc.localize(shift.end_time).astimezone(tz),
+                        shift,
+                    )
+                    for shift in shifts_for_resource
+                ])
+                res[resource.id] = (res[resource.id] - dates_to_clear) | shift_intervals_to_add
         return res

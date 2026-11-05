@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-    <t t-name="ShiftPlanning.generate_planning_button" owl="1">
+    <t t-name="ShiftPlanning.generate_planning_button">
         <t t-if="showGeneratePlanning">
             <button
                 type="button"
@@ -12,11 +12,11 @@
         </t>
     </t>
 
-    <t t-name="hr_shift.ListView.Buttons" owl="1">
+    <t t-name="hr_shift.ListView.Buttons">
         <t t-call="ShiftPlanning.generate_planning_button" />
     </t>
 
-    <t t-name="hr_shift.KanbanView.Buttons" owl="1">
+    <t t-name="hr_shift.KanbanView.Buttons">
         <t t-call="ShiftPlanning.generate_planning_button" />
     </t>
 </templates>
