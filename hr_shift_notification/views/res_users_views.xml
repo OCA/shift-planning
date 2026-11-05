@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 INVITU (<https://www.invitu.com>) -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="view_users_form_preferences_notify" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="arch" type="xml">
+            <field name="email" position="before">
+                <field name="shift_notify" readonly="0" />
+            </field>
+        </field>
+    </record>
+    <record id="view_users_form_notify" model="ir.ui.view">
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <field name="signature" position="before">
+                <field name="shift_notify" invisible="share" />
+            </field>
+        </field>
+    </record>
+</odoo>

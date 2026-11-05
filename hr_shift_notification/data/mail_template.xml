@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 INVITU (<https://www.invitu.com>) -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo noupdate="1">
+    <record id="mail_template_shift_planning_notify" model="mail.template">
+        <field name="name">Shift Planning: Notify Employee</field>
+        <field name="model_id" ref="hr_shift.model_hr_shift_planning_shift" />
+        <field
+            name="subject"
+        >Your shift planning for week {{ object.planning_id.week_number }} of {{ object.planning_id.year }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.employee_id.name" />,</p>
+                <p>
+                    Your shift planning for the week starting
+                    <t t-out="object.planning_id.start_date" />
+                    has been updated.
+                </p>
+                <ul>
+                    <t
+                        t-foreach="object.line_ids.filtered(lambda l: l.state == 'assigned').sorted('day_number')"
+                        t-as="line"
+                    >
+                        <li>
+                            <t t-out="line.display_name" />
+                        </li>
+                    </t>
+                </ul>
+                <p>
+                    <a
+                        t-att-href="object.get_base_url() + '/odoo/action-hr_shift.my_shifts_planning_action'"
+                    >View my shifts in Odoo</a>
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>

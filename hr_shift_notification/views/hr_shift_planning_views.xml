@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 INVITU (<https://www.invitu.com>) -->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="shift_planning_form_notify" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_notify"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-paper-plane"
+                    invisible="notify_count == 0"
+                    groups="hr_shift.group_shift_manager"
+                >
+                    <field name="notify_count" widget="statinfo" string="To Notify" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
