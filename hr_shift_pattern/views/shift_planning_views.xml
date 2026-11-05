@@ -1,0 +1,272 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="shift_planning_shift_assign_kanban" model="ir.ui.view">
+        <field name="model">hr.shift.planning.shift</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_shift_kanban" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <kanban position="attributes">
+                <attribute name="group_create">0</attribute>
+                <attribute name="create">0</attribute>
+            </kanban>
+        </field>
+    </record>
+    <record id="shift_planning_cycle_line_search" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id" />
+                <field name="template_id" />
+                <filter
+                    name="day_mon"
+                    string="Monday"
+                    domain="[('day_number', '=', '0')]"
+                />
+                <filter
+                    name="day_tue"
+                    string="Tuesday"
+                    domain="[('day_number', '=', '1')]"
+                />
+                <filter
+                    name="day_wed"
+                    string="Wednesday"
+                    domain="[('day_number', '=', '2')]"
+                />
+                <filter
+                    name="day_thu"
+                    string="Thursday"
+                    domain="[('day_number', '=', '3')]"
+                />
+                <filter
+                    name="day_fri"
+                    string="Friday"
+                    domain="[('day_number', '=', '4')]"
+                />
+                <filter
+                    name="day_sat"
+                    string="Saturday"
+                    domain="[('day_number', '=', '5')]"
+                />
+                <filter
+                    name="day_sun"
+                    string="Sunday"
+                    domain="[('day_number', '=', '6')]"
+                />
+                <separator />
+                <filter
+                    name="filter_by_cycle"
+                    string="By cycle"
+                    domain="[('shift_id.employee_id.shift_pattern_id', '!=', False)]"
+                />
+                <filter
+                    name="filter_manual"
+                    string="Manual"
+                    domain="[('shift_id.employee_id.shift_pattern_id', '=', False)]"
+                />
+                <group string="Group By">
+                    <filter
+                        name="group_day"
+                        string="Day"
+                        context="{'group_by': 'day_number'}"
+                    />
+                    <filter
+                        name="group_template"
+                        string="Shift"
+                        context="{'group_by': 'template_id'}"
+                    />
+                    <filter
+                        name="group_employee"
+                        string="Employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="shift_planning_cycle_line_tree" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="arch" type="xml">
+            <list
+                editable="bottom"
+                create="0"
+                default_order="day_number, start_time, employee_id"
+            >
+                <field
+                    name="employee_id"
+                    widget="many2one_avatar_employee"
+                    readonly="1"
+                />
+                <field name="day_number" readonly="1" />
+                <field name="template_id" />
+                <field name="state" readonly="1" optional="hide" />
+            </list>
+        </field>
+    </record>
+    <record id="shift_planning_cycle_line_kanban" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="arch" type="xml">
+            <kanban
+                create="0"
+                default_group_by="template_id"
+                default_order="day_number, start_time, employee_id"
+            >
+                <field name="day_number" />
+                <field name="employee_id" />
+                <field name="template_id" />
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex flex-column gap-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <field
+                                    name="employee_id"
+                                    widget="many2one_avatar_employee"
+                                />
+                                <strong t-esc="record.employee_id.value" />
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-uppercase">
+                                    <field name="day_number" />
+                                </span>
+                                <span class="badge bg-light">
+                                    <field name="template_id" />
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="shift_planning_cycle_lines_action" model="ir.actions.act_window">
+        <field name="name">Cycle shifts</field>
+        <field name="res_model">hr.shift.planning.line</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="shift_planning_cycle_line_search" />
+        <field
+            name="domain"
+        >[('shift_id.planning_id', '=', active_id), ('shift_id.employee_id.shift_pattern_id', '!=', False)]</field>
+    </record>
+    <record
+        id="shift_planning_cycle_lines_action_view_kanban"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence">1</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="shift_planning_cycle_line_kanban" />
+        <field name="act_window_id" ref="shift_planning_cycle_lines_action" />
+    </record>
+    <record
+        id="shift_planning_cycle_lines_action_view_list"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence">2</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="shift_planning_cycle_line_tree" />
+        <field name="act_window_id" ref="shift_planning_cycle_lines_action" />
+    </record>
+    <record id="shift_planning_manual_action" model="ir.actions.act_window">
+        <field name="name">Manual shifts</field>
+        <field name="res_model">hr.shift.planning.shift</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="shift_planning_shift_assign_kanban" />
+        <field name="context">{'group_by': 'pattern_week_id'}</field>
+        <field
+            name="domain"
+        >[('planning_id', '=', active_id), ('employee_id.shift_pattern_id', '=', False)]</field>
+    </record>
+    <record id="shift_planning_lines_action" model="ir.actions.act_window">
+        <field name="name">Shifts</field>
+        <field name="res_model">hr.shift.planning.line</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="shift_planning_cycle_line_search" />
+        <field name="domain">[('shift_id.planning_id', '=', active_id)]</field>
+    </record>
+    <record
+        id="shift_planning_lines_action_view_kanban"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence">1</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="shift_planning_cycle_line_kanban" />
+        <field name="act_window_id" ref="shift_planning_lines_action" />
+    </record>
+    <record
+        id="shift_planning_lines_action_view_list"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence">2</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="shift_planning_cycle_line_tree" />
+        <field name="act_window_id" ref="shift_planning_lines_action" />
+    </record>
+    <record id="shift_planning_line_calendar_all_shifts" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_line_calendar" />
+        <field name="arch" type="xml">
+            <calendar position="attributes">
+                <attribute name="color">employee_id</attribute>
+            </calendar>
+        </field>
+    </record>
+    <record id="shift_planning_all_lines_action" model="ir.actions.act_window">
+        <field name="name">All Shifts</field>
+        <field name="res_model">hr.shift.planning.line</field>
+        <field name="view_mode">calendar,list</field>
+        <field name="domain">[('state', '!=', 'unassigned')]</field>
+    </record>
+    <record
+        id="shift_planning_all_lines_action_view_calendar"
+        model="ir.actions.act_window.view"
+    >
+        <field name="sequence">1</field>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="shift_planning_line_calendar_all_shifts" />
+        <field name="act_window_id" ref="shift_planning_all_lines_action" />
+    </record>
+    <record id="shift_planning_form_pattern" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <button name="action_view_shifts" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    name="action_view_cycle_shifts"
+                    type="object"
+                    icon="fa-refresh"
+                    invisible="cycle_shifts_count == 0"
+                >
+                    <field
+                        name="cycle_shifts_count"
+                        string="By cycle"
+                        widget="statinfo"
+                    />
+                </button>
+                <button
+                    class="oe_stat_button"
+                    name="action_view_manual_shifts"
+                    type="object"
+                    icon="fa-hand-pointer-o"
+                    invisible="manual_shifts_count == 0"
+                >
+                    <field
+                        name="manual_shifts_count"
+                        string="Manual"
+                        widget="statinfo"
+                    />
+                </button>
+                <button
+                    class="oe_stat_button"
+                    name="action_view_all_lines"
+                    type="object"
+                    icon="fa-calendar-o"
+                    invisible="all_lines_count == 0"
+                >
+                    <field name="all_lines_count" string="Shifts" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

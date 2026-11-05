@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="hr_employee_form_pattern" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <field name="shift_planning" position="after">
+                <field name="shift_pattern_id" invisible="not shift_planning" />
+                <field
+                    name="shift_pattern_start_date"
+                    invisible="not shift_pattern_id"
+                />
+                <field
+                    name="shift_pattern_start_week"
+                    invisible="not shift_pattern_id"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

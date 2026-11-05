@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="week_mornings" model="hr.shift.pattern.week">
+        <field name="name">Mornings week</field>
+        <field name="color">10</field>
+    </record>
+    <record id="week_mornings_line_mon" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_mornings" />
+        <field name="day_number">0</field>
+        <field name="template_id" ref="hr_shift.template_morning" />
+    </record>
+    <record id="week_mornings_line_tue" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_mornings" />
+        <field name="day_number">1</field>
+        <field name="template_id" ref="hr_shift.template_morning" />
+    </record>
+    <record id="week_mornings_line_wed" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_mornings" />
+        <field name="day_number">2</field>
+        <field name="template_id" ref="hr_shift.template_morning" />
+    </record>
+    <record id="week_mornings_line_thu" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_mornings" />
+        <field name="day_number">3</field>
+        <field name="template_id" ref="hr_shift.template_morning" />
+    </record>
+    <record id="week_mornings_line_fri" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_mornings" />
+        <field name="day_number">4</field>
+        <field name="template_id" ref="hr_shift.template_morning" />
+    </record>
+    <record id="week_afternoons" model="hr.shift.pattern.week">
+        <field name="name">Afternoons week</field>
+        <field name="color">4</field>
+    </record>
+    <record id="week_afternoons_line_mon" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_afternoons" />
+        <field name="day_number">0</field>
+        <field name="template_id" ref="hr_shift.template_afternoon" />
+    </record>
+    <record id="week_afternoons_line_tue" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_afternoons" />
+        <field name="day_number">1</field>
+        <field name="template_id" ref="hr_shift.template_afternoon" />
+    </record>
+    <record id="week_afternoons_line_wed" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_afternoons" />
+        <field name="day_number">2</field>
+        <field name="template_id" ref="hr_shift.template_afternoon" />
+    </record>
+    <record id="week_afternoons_line_thu" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_afternoons" />
+        <field name="day_number">3</field>
+        <field name="template_id" ref="hr_shift.template_afternoon" />
+    </record>
+    <record id="week_afternoons_line_fri" model="hr.shift.pattern.week.line">
+        <field name="week_id" ref="week_afternoons" />
+        <field name="day_number">4</field>
+        <field name="template_id" ref="hr_shift.template_afternoon" />
+    </record>
+    <record id="pattern_morn_aft" model="hr.shift.pattern">
+        <field name="name">Mornings/Afternoons rotation</field>
+        <field name="color">7</field>
+    </record>
+    <record id="pattern_morn_aft_step_1" model="hr.shift.pattern.step">
+        <field name="pattern_id" ref="pattern_morn_aft" />
+        <field name="sequence">10</field>
+        <field name="week_id" ref="week_mornings" />
+    </record>
+    <record id="pattern_morn_aft_step_2" model="hr.shift.pattern.step">
+        <field name="pattern_id" ref="pattern_morn_aft" />
+        <field name="sequence">20</field>
+        <field name="week_id" ref="week_afternoons" />
+    </record>
+    <record id="hr.employee_admin" model="hr.employee">
+        <field name="shift_pattern_id" ref="pattern_morn_aft" />
+        <field name="shift_pattern_start_date">2025-01-06</field>
+    </record>
+</odoo>
