@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shift_template_user,access_shift_template user,model_hr_shift_template,base.group_user,1,0,0,0
+access_shift_planning_user,access_shift_planning user,model_hr_shift_planning,base.group_user,1,0,0,0
+access_shift_planning_shift_user,access_shift_planning_shift user,model_hr_shift_planning_shift,base.group_user,1,0,0,0
+access_shift_planning_line_user,access_shift_planning_line user,model_hr_shift_planning_line,base.group_user,1,0,0,0
+access_shift_planning_wizard_user,access_shift_planning_wizard user,model_shift_planning_wizard,base.group_user,1,0,0,0
+access_shift_template_manager,access_shift_template manager,model_hr_shift_template,hr_shift.group_shift_manager,1,1,1,1
+access_shift_planning_manager,access_shift_planning manager,model_hr_shift_planning,hr_shift.group_shift_manager,1,1,1,1
+access_shift_planning_shift_manager,access_shift_planning_shift manager,model_hr_shift_planning_shift,hr_shift.group_shift_manager,1,1,1,1
+access_shift_planning_line_manager,access_shift_planning_line manager,model_hr_shift_planning_line,hr_shift.group_shift_manager,1,1,1,1
+access_shift_planning_wizard_manager,access_shift_planning_wizard manager,model_shift_planning_wizard,hr_shift.group_shift_manager,1,1,1,1
