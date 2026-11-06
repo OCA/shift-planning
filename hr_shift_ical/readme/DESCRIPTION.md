@@ -1,0 +1,1 @@
+Publish each employee's shift planning as a personal read-only iCalendar feed via base_ical. Every internal user can generate a personal URL from their preferences and subscribe to it from Google Calendar, Apple Calendar or Outlook. Each user only sees their own shifts.
